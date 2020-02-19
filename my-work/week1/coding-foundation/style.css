@@ -1,0 +1,36 @@
+#inputarea {
+    margin: 50px;
+    justify-content: center;;
+    justify-items: center;
+    display: flex;
+    align-content: center;
+    align-items: center;
+
+}
+
+#bspace {
+    display: flex;
+    align-content: space-around;
+    align-items: baseline;
+    flex-wrap: wrap;
+}
+
+.blob{
+   border-radius: 10px;
+   height: 10px;
+    width: 10px;
+    margin: 5px;
+    background-color: pink;
+}
+
+.crazyblob{
+   border-radius: 10px;
+   height: 10px;
+    width: 10px;
+    margin: 5px;
+    background-color: pink;
+}
+
+body {
+    background-color: beige;
+}
