@@ -5,122 +5,43 @@ let color = [
   '#ffc1079e',//orange
   '#ffeb3b75',//yellow
   '#4caf5082',//green
-  '#00bcd482'//blue
+  '#00bcd482',//blue
+  '#3f51b5b8',
+  '#9c27b08f'
+
 ]
 
 let data = [
-  {
-    "timestamp": "2020-02-19T06:01:33.120Z",
-    "pizza": 10,
-    "chocolate": 2,
-    "coffee": 10,
-    "hotpot": 8,
-    "yoghurt": 5
-  },
-  {
-    "timestamp": "2020-02-19T06:01:37.084Z",
-    "pizza": 8,
-    "chocolate": 8,
-    "coffee": 7,
-    "hotpot": 10,
-    "yoghurt": 8
-  },
-  {
-    "timestamp": "2020-02-19T06:01:38.428Z",
-    "pizza": 9,
-    "chocolate": 7,
-    "coffee": 8,
-    "hotpot": 4,
-    "yoghurt": 3
-  },
-  {
-    "timestamp": "2020-02-19T06:01:38.708Z",
-    "pizza": 3,
-    "chocolate": 9,
-    "coffee": 9,
-    "hotpot": 10,
-    "yoghurt": 5
-  },
-  {
-    "timestamp": "2020-02-19T06:01:38.801Z",
-    "pizza": 7,
-    "chocolate": 10,
-    "coffee": 9,
-    "hotpot": 10,
-    "yoghurt": 5
-  },
-  {
-    "timestamp": "2020-02-19T06:01:39.091Z",
-    "pizza": 8,
-    "chocolate": 5,
-    "coffee": 5,
-    "hotpot": 9,
-    "yoghurt": 10
-  },
-  {
-    "timestamp": "2020-02-19T06:01:39.514Z",
-    "pizza": 8,
-    "chocolate": 7,
-    "coffee": 9,
-    "hotpot": 10,
-    "yoghurt": 10
-  },
-  {
-    "timestamp": "2020-02-19T06:01:39.784Z",
-    "pizza": 8,
-    "chocolate": 10,
-    "coffee": 10,
-    "hotpot": 10,
-    "yoghurt": 8
-  },
-  {
-    "timestamp": "2020-02-19T06:01:41.015Z",
-    "pizza": 7,
-    "chocolate": 5,
-    "coffee": 9,
-    "hotpot": 2,
-    "yoghurt": 10
-  },
-  {
-    "timestamp": "2020-02-19T06:01:44.589Z",
-    "pizza": 10,
-    "chocolate": 5,
-    "coffee": 8,
-    "hotpot": 10,
-    "yoghurt": 6
-  },
-  {
-    "timestamp": "2020-02-19T06:01:45.563Z",
-    "pizza": 7,
-    "chocolate": 6,
-    "coffee": 1,
-    "hotpot": 7,
-    "yoghurt": 9
-  },
-  {
-    "timestamp": "2020-02-19T06:01:46.431Z",
-    "pizza": 7,
-    "chocolate": 8,
-    "coffee": 10,
-    "hotpot": 7,
-    "yoghurt": 9
-  },
-  {
-    "timestamp": "2020-02-19T06:01:47.885Z",
-    "pizza": 6,
-    "chocolate": 10,
-    "coffee": 6,
-    "hotpot": 10,
-    "yoghurt": 10
-  },
-  {
-    "timestamp": "2020-02-19T06:02:17.312Z",
-    "pizza": 8,
-    "chocolate": 9,
-    "coffee": 10,
-    "hotpot": 7,
-    "yoghurt": 9
-  }
+    {
+        "timestamp": "2020-02-21T14:49:04.024Z",
+        "folkMusic": 7,
+        "electronicMusic": 5,
+        "rock": 4,
+        "jazz": 9,
+        "classical": 6,
+        "postrock": 9,
+        "rap": 3
+    },
+    {
+        "timestamp": "2020-02-21T14:49:23.721Z",
+        "folkMusic": 9,
+        "electronicMusic": 2,
+        "rock": 2,
+        "jazz": 9,
+        "classical": 4,
+        "postrock": 10,
+        "rap": 1
+    },
+    {
+        "timestamp": "2020-02-21T16:08:00.853Z",
+        "folkMusic": 8,
+        "electronicMusic": 3,
+        "rock": 5,
+        "jazz": 10,
+        "classical": 3,
+        "postrock": 8,
+        "rap": 7
+    }
 ]
 console.log(data);
 

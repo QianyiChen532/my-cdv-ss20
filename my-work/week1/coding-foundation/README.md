@@ -1,4 +1,4 @@
-##Several troubleshooting notes:
+## Several troubleshooting notes:
 
 - remove the created divs should use 'bspace.childNodes[0].remove();' instead of 'bspace.remove();'
 - add variation by creating the object in js and do _.className = '' ->to create the class and assign variables

@@ -1,8 +1,6 @@
-/* .bar{
-height: 100px;
-width: 200px;
-margin-bottom: 4px;
-} */
+body{
+  background-color:ghostwhite;
+}
 
 .title {
   justify-content: center;;
