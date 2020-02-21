@@ -1,0 +1,74 @@
+/* .bar{
+height: 100px;
+width: 200px;
+margin-bottom: 4px;
+} */
+
+.title {
+  justify-content: center;;
+  justify-items: center;
+  display: flex;
+  align-content: center;
+  align-items: center;
+}
+#viz {
+    border-left: 1px solid #9E9E9E;
+    border-bottom: 1px solid #9E9E9E;
+    width: 80%;
+    height: 80%;
+    margin: 5%;
+}
+
+#container{
+  justify-content: center;
+      display: flex;
+      align-items: baseline;
+}
+#gcontainer{
+  margin-left: 5px;
+}
+
+.bar {
+    height: 100px;
+    width: 50px;
+    margin-bottom: 4px;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: -webkit-inline-box;
+    outline-color: #795548;
+}
+
+.bar:hover{
+  opacity: 0.7;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #000000ab;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/* .grid {
+    border: 1px solid #ccc;
+    border-width: 1px 0 0 1px;
+    z-index: 1;
+}
+
+.grid div {
+    border: 1px solid #ccc;
+    border-width: 0 1px 1px 0;
+    float: left;
+    z-index: 1;
+} */
