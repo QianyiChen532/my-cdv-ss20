@@ -41,6 +41,96 @@ let data = [
         "classical": 3,
         "postrock": 8,
         "rap": 7
+    },
+    {
+        "timestamp": "2020-02-22T02:27:04.788Z",
+        "folkMusic": 7,
+        "electronicMusic": 5,
+        "rock": 6,
+        "jazz": 8,
+        "classical": 7,
+        "postrock": 5,
+        "rap": 5
+    },
+    {
+        "timestamp": "2020-02-22T08:14:06.590Z",
+        "folkMusic": 8,
+        "electronicMusic": 6,
+        "rock": 6,
+        "jazz": 5,
+        "classical": 9,
+        "postrock": 5,
+        "rap": 3
+    },
+    {
+        "timestamp": "2020-02-22T08:16:02.284Z",
+        "folkMusic": 5,
+        "electronicMusic": 10,
+        "rock": 5,
+        "jazz": 6,
+        "classical": 5,
+        "postrock": 7,
+        "rap": 10
+    },
+    {
+        "timestamp": "2020-02-23T11:38:16.428Z",
+        "folkMusic": 5,
+        "electronicMusic": 6,
+        "rock": 6,
+        "jazz": 6,
+        "classical": 7,
+        "postrock": 4,
+        "rap": 6
+    },
+    {
+        "timestamp": "2020-02-23T11:39:09.523Z",
+        "folkMusic": 4,
+        "electronicMusic": 8,
+        "rock": 8,
+        "jazz": 5,
+        "classical": 3,
+        "postrock": 4,
+        "rap": 9
+    },
+    {
+        "timestamp": "2020-02-23T11:40:00.638Z",
+        "folkMusic": 9,
+        "electronicMusic": 3,
+        "rock": 4,
+        "jazz": 7,
+        "classical": 6,
+        "postrock": 9,
+        "rap": 5
+    },
+    {
+        "timestamp": "2020-02-23T11:40:55.187Z",
+        "folkMusic": 8,
+        "electronicMusic": 8,
+        "rock": 7,
+        "jazz": 8,
+        "classical": 8,
+        "postrock": 7,
+        "rap": 8
+    },
+    {
+        "timestamp": "2020-02-23T11:41:29.567Z",
+        "folkMusic": 4,
+        "electronicMusic": 4,
+        "rock": 3,
+        "jazz": 7,
+        "classical": 6,
+        "postrock": 4,
+        "rap": 4
+    },
+    {
+        "timestamp": "2020-02-23T11:41:48.645Z",
+        "folkMusic": 8,
+        "electronicMusic": 5,
+        "rock": 6,
+        "jazz": 4,
+        "classical": 8,
+        "postrock": 5,
+        "rap": 7
     }
 ]
 console.log(data);
