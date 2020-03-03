@@ -1,5 +1,6 @@
 [
     {
+        "no": 1,
         "date": 1,
         "timeperiod": "morning",
         "from": "family",
@@ -7,6 +8,7 @@
         "howmedium": "talking"
     },
     {
+        "no": 2,
         "date": 1,
         "timeperiod": "morning",
         "from": "friends",
@@ -14,6 +16,7 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 3,
         "date": 1,
         "timeperiod": "afternoon",
         "from": "friends",
@@ -21,6 +24,7 @@
         "howmedium": "phone call"
     },
     {
+        "no": 4,
         "date": 1,
         "timeperiod": "afternoon",
         "from": "friends",
@@ -28,13 +32,7 @@
         "howmedium": "wechat/weibo"
     },
     {
-        "date": 1,
-        "timeperiod": "evening ",
-        "from": "strangers",
-        "topic": "resources",
-        "howmedium": "wechat/weibo"
-    },
-    {
+        "no": 5,
         "date": 2,
         "timeperiod": "evening ",
         "from": "friends",
@@ -42,13 +40,15 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 6,
         "date": 2,
         "timeperiod": "evening ",
         "from": "friends",
         "topic": "tech",
-        "howmedium": "video/video/website/video/website"
+        "howmedium": "video/website"
     },
     {
+        "no": 7,
         "date": 2,
         "timeperiod": "evening ",
         "from": "class",
@@ -56,27 +56,31 @@
         "howmedium": "video/website"
     },
     {
+        "no": 8,
         "date": 2,
         "timeperiod": "afternoon",
         "from": "teammate",
         "topic": "design&art",
-        "howmedium": "wechat/weibo/weibo"
+        "howmedium": "wechat/weibo"
     },
     {
+        "no": 9,
         "date": 2,
         "timeperiod": "afternoon",
         "from": "friends",
         "topic": "entertainment ",
-        "howmedium": "video/video/website"
+        "howmedium": "video/website"
     },
     {
+        "no": 10,
         "date": 2,
         "timeperiod": "afternoon",
         "from": "friends",
         "topic": "entertainment",
-        "howmedium": "video/video/website"
+        "howmedium": "video/website"
     },
     {
+        "no": 11,
         "date": 3,
         "timeperiod": "morning",
         "from": "class",
@@ -84,13 +88,7 @@
         "howmedium": "video/website"
     },
     {
-        "date": 3,
-        "timeperiod": "afternoon",
-        "from": "class",
-        "topic": "design&art",
-        "howmedium": "video/video/website"
-    },
-    {
+        "no": 12,
         "date": 3,
         "timeperiod": "afternoon",
         "from": "class",
@@ -98,6 +96,15 @@
         "howmedium": "video/website"
     },
     {
+        "no": 13,
+        "date": 3,
+        "timeperiod": "afternoon",
+        "from": "class",
+        "topic": "design&art",
+        "howmedium": "video/website"
+    },
+    {
+        "no": 14,
         "date": 3,
         "timeperiod": "afternoon",
         "from": "friends",
@@ -105,6 +112,7 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 15,
         "date": 3,
         "timeperiod": "evening ",
         "from": "friends",
@@ -112,6 +120,7 @@
         "howmedium": "video/website"
     },
     {
+        "no": 16,
         "date": 4,
         "timeperiod": "morning",
         "from": "friends",
@@ -119,6 +128,7 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 17,
         "date": 4,
         "timeperiod": "afternoon",
         "from": "friends",
@@ -126,6 +136,7 @@
         "howmedium": "phone call"
     },
     {
+        "no": 18,
         "date": 5,
         "timeperiod": "morning",
         "from": "teammate",
@@ -133,6 +144,7 @@
         "howmedium": "meeting"
     },
     {
+        "no": 19,
         "date": 5,
         "timeperiod": "morning",
         "from": "teammate",
@@ -140,6 +152,7 @@
         "howmedium": "meeting"
     },
     {
+        "no": 20,
         "date": 5,
         "timeperiod": "morning",
         "from": "teammate",
@@ -147,6 +160,7 @@
         "howmedium": "meeting"
     },
     {
+        "no": 21,
         "date": 5,
         "timeperiod": "afternoon",
         "from": "family",
@@ -154,6 +168,7 @@
         "howmedium": "talking"
     },
     {
+        "no": 22,
         "date": 5,
         "timeperiod": "evening ",
         "from": "friends",
@@ -161,13 +176,15 @@
         "howmedium": "phone call"
     },
     {
+        "no": 23,
         "date": 5,
         "timeperiod": "evening ",
         "from": "friends",
-        "topic": "entertainment/culture ",
+        "topic": "entertainment",
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 24,
         "date": 6,
         "timeperiod": "morning",
         "from": "friends",
@@ -175,13 +192,15 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 25,
         "date": 6,
         "timeperiod": "morning",
         "from": "friends",
-        "topic": "entertainment/culture ",
+        "topic": "entertainment",
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 26,
         "date": 6,
         "timeperiod": "evening ",
         "from": "teammate",
@@ -189,6 +208,7 @@
         "howmedium": "meeting"
     },
     {
+        "no": 27,
         "date": 7,
         "timeperiod": "morning",
         "from": "friends",
@@ -196,6 +216,7 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 28,
         "date": 7,
         "timeperiod": "morning",
         "from": "friends",
@@ -203,6 +224,7 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 29,
         "date": 7,
         "timeperiod": "afternoon",
         "from": "class",
@@ -210,6 +232,7 @@
         "howmedium": "video/website"
     },
     {
+        "no": 30,
         "date": 7,
         "timeperiod": "evening",
         "from": "teammate",
@@ -217,13 +240,15 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 31,
         "date": 7,
         "timeperiod": "evening",
         "from": "friends",
         "topic": "news",
-        "howmedium": "wechat/weibo/weibo"
+        "howmedium": "wechat/weibo"
     },
     {
+        "no": 32,
         "date": 7,
         "timeperiod": "evening",
         "from": "friends",
@@ -231,6 +256,7 @@
         "howmedium": "wechat/weibo"
     },
     {
+        "no": 33,
         "date": 8,
         "timeperiod": "afternoon",
         "from": "family",
