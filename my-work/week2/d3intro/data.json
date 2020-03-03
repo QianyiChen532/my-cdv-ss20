@@ -1,0 +1,92 @@
+[
+    {
+        "timestamp": "2019-09-09T14:52:29.066Z",
+        "The Chinese Food": 5,
+        "The Halal Food": 8,
+        "The Western Food": 5,
+        "The Salad Bar": 5,
+        "The Breakfast Area": 5,
+        "The Sandwich Area": 7
+    },
+    {
+        "timestamp": "2019-09-09T14:53:51.465Z",
+        "The Chinese Food": 7,
+        "The Halal Food": 9,
+        "The Western Food": 2,
+        "The Salad Bar": 6,
+        "The Breakfast Area": 6,
+        "The Sandwich Area": 6
+    },
+    {
+        "timestamp": "2019-09-09T14:56:37.756Z",
+        "The Chinese Food": 4,
+        "The Halal Food": 7,
+        "The Western Food": 2,
+        "The Salad Bar": 1,
+        "The Breakfast Area": 5,
+        "The Sandwich Area": 10
+    },
+    {
+        "timestamp": "2019-09-09T15:08:25.453Z",
+        "The Chinese Food": 5,
+        "The Halal Food": 7,
+        "The Western Food": 7,
+        "The Salad Bar": 3,
+        "The Breakfast Area": 5,
+        "The Sandwich Area": 6
+    },
+    {
+        "timestamp": "2019-09-09T15:10:42.885Z",
+        "The Chinese Food": 1,
+        "The Halal Food": 6,
+        "The Western Food": 5,
+        "The Salad Bar": 3,
+        "The Breakfast Area": 1,
+        "The Sandwich Area": 2
+    },
+    {
+        "timestamp": "2019-09-09T15:19:59.995Z",
+        "The Chinese Food": 3,
+        "The Halal Food": 8,
+        "The Western Food": 6,
+        "The Salad Bar": 5,
+        "The Breakfast Area": 7,
+        "The Sandwich Area": 4
+    },
+    {
+        "timestamp": "2019-09-09T16:24:19.799Z",
+        "The Chinese Food": 3,
+        "The Halal Food": 7,
+        "The Western Food": 7,
+        "The Salad Bar": 3,
+        "The Breakfast Area": 5,
+        "The Sandwich Area": 9
+    },
+    {
+        "timestamp": "2019-09-10T00:21:03.061Z",
+        "The Chinese Food": 6,
+        "The Halal Food": 9,
+        "The Western Food": 4,
+        "The Salad Bar": 6,
+        "The Breakfast Area": 5,
+        "The Sandwich Area": 8
+    },
+    {
+        "timestamp": "2019-09-10T01:25:26.490Z",
+        "The Chinese Food": 6,
+        "The Halal Food": 9,
+        "The Western Food": 5,
+        "The Salad Bar": 3,
+        "The Breakfast Area": 4,
+        "The Sandwich Area": 8
+    },
+    {
+        "timestamp": "2019-09-10T01:31:54.561Z",
+        "The Chinese Food": 5,
+        "The Halal Food": 10,
+        "The Western Food": 8,
+        "The Salad Bar": 5,
+        "The Breakfast Area": 7,
+        "The Sandwich Area": 7
+    }
+]

@@ -1,0 +1,240 @@
+[
+    {
+        "date": 1,
+        "timeperiod": "morning",
+        "from": "family",
+        "topic": "news",
+        "howmedium": "talking"
+    },
+    {
+        "date": 1,
+        "timeperiod": "morning",
+        "from": "friends",
+        "topic": "design&art",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 1,
+        "timeperiod": "afternoon",
+        "from": "friends",
+        "topic": "personal experience",
+        "howmedium": "phone call"
+    },
+    {
+        "date": 1,
+        "timeperiod": "afternoon",
+        "from": "friends",
+        "topic": "news",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 1,
+        "timeperiod": "evening ",
+        "from": "strangers",
+        "topic": "resources",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 2,
+        "timeperiod": "evening ",
+        "from": "friends",
+        "topic": "design&art",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 2,
+        "timeperiod": "evening ",
+        "from": "friends",
+        "topic": "tech",
+        "howmedium": "video/video/website/video/website"
+    },
+    {
+        "date": 2,
+        "timeperiod": "evening ",
+        "from": "class",
+        "topic": "tech",
+        "howmedium": "video/website"
+    },
+    {
+        "date": 2,
+        "timeperiod": "afternoon",
+        "from": "teammate",
+        "topic": "design&art",
+        "howmedium": "wechat/weibo/weibo"
+    },
+    {
+        "date": 2,
+        "timeperiod": "afternoon",
+        "from": "friends",
+        "topic": "entertainment ",
+        "howmedium": "video/video/website"
+    },
+    {
+        "date": 2,
+        "timeperiod": "afternoon",
+        "from": "friends",
+        "topic": "entertainment",
+        "howmedium": "video/video/website"
+    },
+    {
+        "date": 3,
+        "timeperiod": "morning",
+        "from": "class",
+        "topic": "news",
+        "howmedium": "video/website"
+    },
+    {
+        "date": 3,
+        "timeperiod": "afternoon",
+        "from": "class",
+        "topic": "design&art",
+        "howmedium": "video/video/website"
+    },
+    {
+        "date": 3,
+        "timeperiod": "afternoon",
+        "from": "class",
+        "topic": "design&art",
+        "howmedium": "video/website"
+    },
+    {
+        "date": 3,
+        "timeperiod": "afternoon",
+        "from": "friends",
+        "topic": "news",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 3,
+        "timeperiod": "evening ",
+        "from": "friends",
+        "topic": "news",
+        "howmedium": "video/website"
+    },
+    {
+        "date": 4,
+        "timeperiod": "morning",
+        "from": "friends",
+        "topic": "personal experience",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 4,
+        "timeperiod": "afternoon",
+        "from": "friends",
+        "topic": "personal experience",
+        "howmedium": "phone call"
+    },
+    {
+        "date": 5,
+        "timeperiod": "morning",
+        "from": "teammate",
+        "topic": "news",
+        "howmedium": "meeting"
+    },
+    {
+        "date": 5,
+        "timeperiod": "morning",
+        "from": "teammate",
+        "topic": "tech",
+        "howmedium": "meeting"
+    },
+    {
+        "date": 5,
+        "timeperiod": "morning",
+        "from": "teammate",
+        "topic": "business",
+        "howmedium": "meeting"
+    },
+    {
+        "date": 5,
+        "timeperiod": "afternoon",
+        "from": "family",
+        "topic": "news",
+        "howmedium": "talking"
+    },
+    {
+        "date": 5,
+        "timeperiod": "evening ",
+        "from": "friends",
+        "topic": "personal experience",
+        "howmedium": "phone call"
+    },
+    {
+        "date": 5,
+        "timeperiod": "evening ",
+        "from": "friends",
+        "topic": "entertainment/culture ",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 6,
+        "timeperiod": "morning",
+        "from": "friends",
+        "topic": "news",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 6,
+        "timeperiod": "morning",
+        "from": "friends",
+        "topic": "entertainment/culture ",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 6,
+        "timeperiod": "evening ",
+        "from": "teammate",
+        "topic": "news",
+        "howmedium": "meeting"
+    },
+    {
+        "date": 7,
+        "timeperiod": "morning",
+        "from": "friends",
+        "topic": "news",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 7,
+        "timeperiod": "morning",
+        "from": "friends",
+        "topic": "news",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 7,
+        "timeperiod": "afternoon",
+        "from": "class",
+        "topic": "tech",
+        "howmedium": "video/website"
+    },
+    {
+        "date": 7,
+        "timeperiod": "evening",
+        "from": "teammate",
+        "topic": "business",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 7,
+        "timeperiod": "evening",
+        "from": "friends",
+        "topic": "news",
+        "howmedium": "wechat/weibo/weibo"
+    },
+    {
+        "date": 7,
+        "timeperiod": "evening",
+        "from": "friends",
+        "topic": "design&art",
+        "howmedium": "wechat/weibo"
+    },
+    {
+        "date": 8,
+        "timeperiod": "afternoon",
+        "from": "family",
+        "topic": "design&art",
+        "howmedium": "talking"
+    }
+]

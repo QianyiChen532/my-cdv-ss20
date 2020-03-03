@@ -1,0 +1,12 @@
+body{
+  width, height: 100%;
+  margin: 0;
+}
+#viz{
+  width:100%;
+  height: 100%;
+}
+#viz-container{
+  width:100%;
+  height: 800px;
+}
