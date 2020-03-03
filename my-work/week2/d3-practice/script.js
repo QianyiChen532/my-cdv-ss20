@@ -38,6 +38,10 @@ let viz = d3.select('#viz-container')
         .attr('transform','translate(50,100)')//whatever element put here,even 'hello'
 ;
 
+let div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
 //how button
 for(let i = 0; i<how.length;i++){
   viz
@@ -58,7 +62,6 @@ for(let i = 0; i<how.length;i++){
         .attr('fill','white')
         .attr('z-index',1)
         .text(how[i])
-
 }
 
 //load json
@@ -76,21 +79,47 @@ date
     .attr('cx',xLocation)
     .attr('cy',yLocation)
     .attr('r',10)
-    .attr('opacity')
+
+
+
+d3.selectAll('circle')
+    .on("mouseover", function(d) {
+        div.transition()
+            .duration(200)
+            .style("opacity", .9);
+        div	.html(d.howmedium + "<br/>"  + d.topic)
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY - 40) + "px");
+        })
+    .on("mouseout", function(d) {
+        div.transition()
+            .duration(500)
+            .style("opacity", 0);
+    });
     // .attr('class',function(d){return (d.from).toString();})
     // .on('mouseover',info)
     ;
 
-  let h = viz.selectAll('.how').data(incomingdata.how).enter()
+  // let h = viz.selectAll('.how').data(incomingdata.how).enter()
 
-  h
-  .append('text')
-    .attr('x',i*150+340)
-    .attr('y',240)
-    .attr('font-size',15)
-    .attr('fill','white')
-    .attr('z-index',1)
-    .text(how[i])
+// let dots = viz.selectAll(".circle").data(incomingdata).enter()
+//
+// function connection(d){
+//   dots
+//     .filter(function(d) { return d.howmedium ==  })
+//         .style("fill", "red")
+//         .attr("r", 3.5)
+//         .attr("cx", function(d) { return x(d.date); })
+//         .attr("cy", function(d) { return y(d.close); });
+// }
+  // h
+  // .append('text')
+  //   .attr('x',i*150+340)
+  //   .attr('y',240)
+  //   .attr('font-size',15)
+  //   .attr('fill','white')
+  //   .attr('z-index',1)
+  //   .text(how[i])
 
 }
 
@@ -100,39 +129,3 @@ function xLocation(d){
 function yLocation(d){
     return 70+(d.date % 2)*300;
 }
-
-function connection(d){
-  svg.selectAll("dot")
-        .data(data)
-    .enter().append("circle")
-    .filter(function(d) { return d.close < 400 })
-        .style("fill", "red")
-        .attr("r", 3.5)
-        .attr("cx", function(d) { return x(d.date); })
-        .attr("cy", function(d) { return y(d.close); });
-}
-
-let symbolGenerator = d3.symbol()
-	.size(100);
-
-var symbolTypes = ['symbolCircle', 'symbolCross', 'symbolDiamond', 'symbolSquare', 'symbolStar', 'symbolTriangle', 'symbolWye'];
-
-var xScale = d3.scaleLinear().domain([0, symbolTypes.length - 1]).range([0, 700]);
-
-
-//
-// date
-// 	.append('path')
-// 	.attr('transform', function(d, i) {
-// 		return 'translate(' + xScale(i) + ', 0)';
-// 	})
-// 	.attr('d', function(d) {
-// 		symbolGenerator
-// 			.type(d3[d]);
-// 		return symbolGenerator();
-// 	});
-
-//
-// //symbol
-
-//
