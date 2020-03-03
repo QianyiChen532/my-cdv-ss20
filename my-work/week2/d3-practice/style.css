@@ -1,6 +1,7 @@
 body{
   width, height: 100%;
-  margin: 0;
+  margin: 40px;
+  background-color: antiquewhite;
 }
 #viz{
   width:100%;
@@ -9,4 +10,17 @@ body{
 #viz-container{
   width:100%;
   height: 800px;
+}
+
+.title{
+  justify-content: center;
+    display: flex;
+    margin-top: 10px;
+    padding-top: 10px;
+
+}
+
+h2{
+  font-family: sans-serif;
+  color: grey;
 }

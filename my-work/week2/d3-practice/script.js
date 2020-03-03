@@ -12,6 +12,7 @@ let tc = {
 
 }
 
+let how = ['talking','wechat/weibo','phonecall/meeting','video/website'];
 //how color
 let hc = {
 'talking':'#ffdf3b',
@@ -20,86 +21,107 @@ let hc = {
 'video/website':'#f44336'
 }
 
+//how to symbol
+let hs = {
+  'talking':'symbolCircle',
+  'wechat/weibo':'symbolCross',
+  'phonecall/meeting':'symbolDiamond',
+  'video/website':'symbolStar'
+}
+
 let viz = d3.select('#viz-container')
   .append('svg')
-    .attr('id','viz')//whatever element put here,even 'hello'
+    .attr('id','viz')
+    .attr('height',800)
+    .attr('width',1200)
+      .append('g')
+        .attr('transform','translate(50,100)')//whatever element put here,even 'hello'
 ;
+
+//how button
+for(let i = 0; i<how.length;i++){
+  viz
+    .append('rect')
+      .attr('x',i*150+320)
+      .attr('y',220)
+      .attr('width',130)
+      .attr('height',30)
+      .attr('fill',hc[how[i]])
+      .attr('class','how')
+      // .on('mouseover',connection)
+
+  viz
+      .append('text')
+        .attr('x',i*150+340)
+        .attr('y',240)
+        .attr('font-size',15)
+        .attr('fill','white')
+        .attr('z-index',1)
+        .text(how[i])
+
+}
+
 //load json
 
 d3.json('data.json').then(gotData);
 
 function gotData(incomingdata){
-
-
-  let date = viz.selectAll('dateData').data(incomingdata).enter()
+console.log('1');
+  let date = viz.selectAll('date').data(incomingdata).enter()
 
 //d
 date
-  .append('rect')
-    .attr('fill', 'grey')
-    .attr('x',xLocation)
-    .attr('y',yLocation)
-    .attr('width',200)
-    .attr('height',200)
-    .attr('id','date')
+  .append('circle')
+    .attr('fill', function(d){return tc[d.topic];})
+    .attr('cx',xLocation)
+    .attr('cy',yLocation)
+    .attr('r',10)
+    .attr('opacity')
+    // .attr('class',function(d){return (d.from).toString();})
+    // .on('mouseover',info)
     ;
-console.log(incomingdata);
+
+  let h = viz.selectAll('.how').data(incomingdata.how).enter()
+
+  h
+  .append('text')
+    .attr('x',i*150+340)
+    .attr('y',240)
+    .attr('font-size',15)
+    .attr('fill','white')
+    .attr('z-index',1)
+    .text(how[i])
+
 }
 
 function xLocation(d){
-
-  return d.date*120;
+  return d.no*30;
 }
 function yLocation(d){
-    return 100+(d.date % 2)*300;
+    return 70+(d.date % 2)*300;
 }
 
-// function gotData()
+function connection(d){
+  svg.selectAll("dot")
+        .data(data)
+    .enter().append("circle")
+    .filter(function(d) { return d.close < 400 })
+        .style("fill", "red")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return x(d.date); })
+        .attr("cy", function(d) { return y(d.close); });
+}
+
+let symbolGenerator = d3.symbol()
+	.size(100);
+
+var symbolTypes = ['symbolCircle', 'symbolCross', 'symbolDiamond', 'symbolSquare', 'symbolStar', 'symbolTriangle', 'symbolWye'];
+
+var xScale = d3.scaleLinear().domain([0, symbolTypes.length - 1]).range([0, 700]);
+
+
 //
-// function xLocation(datapoint){
-//   return datapoint * 40;
-// }
-//
-// viz.selectAll('circle').data(myData).enter()
-// //selectAll()--empty object?(select nothing)  data()--bind data, enter-selection
-// //the text in selectAll
-//   .append('circle')
-//     .attr('cx',xLocation)//without () means just passing a reference to it
-//     .attr('cy',188)
-//     .attr('r',30)//apply to each one, =loop
-// ;
-//
-// viz.selectAll('rect').data(myData).enter()
-// //selectAll()--empty object?(select nothing)  data()--bind data, enter-selection
-//   .append('line')
-//     .attr('x1',20)
-//     .attr('x2',188)
-//     .attr('y1',40)
-//     .attr('y2',40)
-//     .attr('stroke-width',4)
-//     .attr('stroke','black')//apply to each one, =loop
-// ;
-// // let type = [];
-// // let color = [];
-// //
-// // function chooseColor(){
-// //   if (==type[i]){
-// //     fill color[i]
-// //   }
-// // }
-//
-// //symbol
-// var symbolGenerator = d3.symbol()
-// 	.size(100);
-//
-// var symbolTypes = ['symbolCircle', 'symbolCross', 'symbolDiamond', 'symbolStar'];
-//
-// var xScale = d3.scaleLinear().domain([0, symbolTypes.length - 1]).range([0, 700]);
-//
-// d3.select('g')
-// 	.selectAll('path')
-// 	.data(symbolTypes)
-// 	.enter()
+// date
 // 	.append('path')
 // 	.attr('transform', function(d, i) {
 // 		return 'translate(' + xScale(i) + ', 0)';
@@ -107,18 +129,10 @@ function yLocation(d){
 // 	.attr('d', function(d) {
 // 		symbolGenerator
 // 			.type(d3[d]);
-//
 // 		return symbolGenerator();
 // 	});
+
 //
-// d3.select('g')
-// 	.selectAll('text')
-// 	.data(symbolTypes)
-// 	.enter()
-// 	.append('text')
-// 	.attr('transform', function(d, i) {
-// 		return 'translate(' + xScale(i) + ', 40)';
-// 	})
-// 	.text(function(d) {
-// 		return 'd3.' + d;
-// 	});
+// //symbol
+
+//
