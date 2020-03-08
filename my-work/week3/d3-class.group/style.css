@@ -18,11 +18,13 @@ body{
     margin-top: 10px;
     padding-top: 10px;
 
+
 }
 
 h2{
-  font-family: sans-serif;
+
   color: grey;
+  font-family: monospace;
 }
 
 

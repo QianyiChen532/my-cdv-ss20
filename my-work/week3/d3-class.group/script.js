@@ -1,5 +1,4 @@
 console.log('js');
-//about d3 group:https://github.com/d3/d3-array
 
 //topic color
 let tc = {
@@ -83,6 +82,19 @@ function gotData(incomingdata){
   .attr('cy',yLocation)
   .attr('r',radius)
 
+let text = viz.selectAll('.text').data(incomingdata).enter()
+.append('g')
+
+text
+.attr('class','text')
+  .append('text')
+  .style("fill", "black")
+    .style("writing-mode", "tb")
+    .style("glyph-orientation-vertical", 0)
+    .style('font-family','monospace')
+    .attr("x", xLocation)
+    .attr("y",yLocation)
+    .text(function(d){return d.topic;})
 
   // datagroup.selectAll('.howmedium').data()
   d3.selectAll('circle')
@@ -111,23 +123,24 @@ function gotData(incomingdata){
   .append('circle')
   .attr('cx',xLocation)
   .attr('cy',yLocation)
-  .attr('r',5)
-  .style('fill-opacity',0.5)
-  .style('fill','grey')
-  .attr('transform','translate(0,-20)')
+  .attr('r',12)
+  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('fill','none')
+  .attr('transform','translate(0,-40)')
 
   let video = viz.selectAll('.web').data(byHow.get('video/website')).enter()
   .append('g')
     .attr('class','web')
     .append('rect')
-    .attr('cx',xLocation)
-    .attr('cy',yLocation)
-    .attr('r',5)
-    .style('fill-opacity',0.5)
-    .style('fill','grey')
-    .attr('transform','translate(0,-20)')
+    .attr('x',xLocation)
+    .attr('y',yLocation)
+    .attr('width',15)
+    .attr('height',15)
+    .style('stroke','grey')
+    .style('fill','none')
+    .attr('transform','translate(-10,-40)')
 
-
+console.log(w,video);
 
 }
 
@@ -136,10 +149,10 @@ function xLocation(d){
 }
 function yLocation(d,i){
 
-  return i*Math.random(40,75)+(d.date % 2)*300;
+  return i*Math.random(50,55)+(d.date % 2)*300;
 }
 
 function radius(d,i){
-  console.log((Math.round(10*Math.random(10,25))));
-  return (i%4+1)*Math.round(1+10*Math.random(10,25));
+
+  return (i%4+1)*Math.round(1+10*Math.random(10,25));//random-return(0,1)
 }
