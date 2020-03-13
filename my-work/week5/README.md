@@ -16,6 +16,6 @@ While in more serious cases like public health, the prediction based non big dat
 
 ### Reference:
 
-[What We Can Learn From the Epic Failure of Google Flu Trends](https://www.wired.com/2015/10/can-learn-epic-failure-google-flu-trends/)
-[Google's Flu Project Shows the Failings of Big Data](https://time.com/23782/google-flu-trends-big-data-problems/)
-[What Statistics Can and Can’t Tell Us About Ourselves](https://www.newyorker.com/magazine/2019/09/09/what-statistics-can-and-cant-tell-us-about-ourselves)
+- [What We Can Learn From the Epic Failure of Google Flu Trends](https://www.wired.com/2015/10/can-learn-epic-failure-google-flu-trends/)
+- [Google's Flu Project Shows the Failings of Big Data](https://time.com/23782/google-flu-trends-big-data-problems/)
+- [What Statistics Can and Can’t Tell Us About Ourselves](https://www.newyorker.com/magazine/2019/09/09/what-statistics-can-and-cant-tell-us-about-ourselves)
