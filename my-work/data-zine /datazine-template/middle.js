@@ -165,6 +165,13 @@ symbol
       .attr('height',15)
       .style('fill',mediumColor)
        .attr('transform',mediumPosition)
+       //
+       // .append('circle')
+       //  .attr("cx", xLocation)
+       //  .attr("cy",yLocation)
+       //  .attr('r',10)
+       //  .style('fill',mediumColor)
+       //   .attr('transform',mediumPosition)
     	;
 
   // d3.selectAll('circle')
@@ -187,31 +194,6 @@ symbol
 //-----medium--
 //   let byHow = d3.group(incomingdata, d=> d.howmedium)
 //
-//   let w = viz.selectAll('.wechat').data(byHow.get('wechat/weibo')).enter()
-//   .append('g')
-//   .attr('class','wechat')
-//   .append('circle')
-//   .attr('cx',xLocation)
-//   .attr('cy',yLocation)
-//   .attr('r',12)
-//   .style('stroke',function(d){return hc[d.howmedium];})
-//   .style('fill','none')
-//   .attr('transform',mediumPosition)
-//
-//   let video = viz.selectAll('.web').data(byHow.get('video/website')).enter()
-//   .append('g')
-//     .attr('class','web')
-//     .append('rect')
-//     .attr('x',xLocation)
-//     .attr('y',yLocation)
-//     .attr('width',15)
-//     .attr('height',15)
-//     .style('stroke','grey')
-//     .style('fill','none')
-//
-//
-// console.log(w,video);
-
 
 
 function xLocation(d,i){
@@ -233,17 +215,6 @@ function yLocation(d,i){
   }
   else{
       weekNum = 2;
-  }
-
-  //get timeperiod
-  if(d.timeperiod == 'morning'){
-      timeperiod = 1;
-  }
-  else if(d.timeperiod == 'afternoon'){
-      timeperiod = 2;
-  }
-  else if(d.timeperiod == 'evening'){
-      timeperiod = 3;
   }
 
   let y = timeScale(d.time);
