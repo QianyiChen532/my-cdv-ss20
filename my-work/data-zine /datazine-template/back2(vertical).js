@@ -17,8 +17,6 @@ let boxHeight = vizHeight-paddingY;
 let weekNum;
 let timeperiod;
 
-
-
 //topic color
 let tc = {
   'news':'#85bdaebd',
@@ -28,7 +26,16 @@ let tc = {
   'entertainment':'#e91e1eba',
   'business':'#5e82acc9',
   'culture':'#ff075f70'
+}
 
+let ti = {
+  3:'news',
+  5:'personal',
+  4:'design&art',
+  2:'tech',
+  6:'entertainment',
+  1:'business',
+  0:'culture'
 }
 
 let how = ['talking','wechat/weibo','phonecall/meeting','video/website'];
@@ -61,13 +68,6 @@ let viz = d3.select('#container')
 .attr('transform',groupPosition)
 ;
 
-
-function textGroupPosition(){
-  let px= paddingX+80;
-  let py = 320;
-  return 'translate('+px+','+py+')';
-}
-
 //filter timescale
 let timeParse = d3.timeParse("%H:%M");
 
@@ -80,6 +80,11 @@ function transformData(dataToTransform){
 
   let timeCorrected = dataToTransform.map(mapFunction);
   return dataToTransform;
+}
+
+function groupPosition(){
+  let pdY = paddingY+100;
+  return 'translate(0,'+pdY+')';
 }
 
 //load json
@@ -107,18 +112,81 @@ function gotData(incomingdata){
   .attr('class','datagroup')
   .attr('transform',groupPosition)
 
+  datagroup
+  .attr('class','text')
+  .attr('transform',textGroupPosition)
+  .append('text')
+  .text(calTotal)
+  .attr('x',function(d,i){
+    let indextem = getGroup(d)-1;
+    return indextem*115;
+  })
+  .attr('y',3*90+80+10)
+  .style("fill", topicColor)
+    // .style("writing-mode", "tb")
+    .style("glyph-orientation-vertical", 0)
+    .style('font-family','monospace')
+
 //7tag for 7topics
   for (let i = 0;i<7;i++){
+
+    let w = 105;
+    let h = 200;
+    let gap= 10;
+    // let tx = i*(gap+w);//w=100,g=10
+    // let ty= Math.abs(i-3)*90+80;
+    let tx = i*(gap+w);
+    let ty = 3*90+80;
+
     viz
     .append('g')
-    .append('rect')
-    .attr('y',i*150)
-    .attr('x',Math.abs(i-3)*50)//Math.abs(i-3)*50
-    .attr('height',boxWidth)
-    .attr('width',boxHeight/4)//boxHeight-paddingY*3
+    .append('line')
+    .attr('x',tx)
+    .attr('y',ty)//Math.abs(i-3)*50
+    .attr('width',w)
+    .attr('height',h)//boxHeight-paddingY*3
     .style('fill','#d8cac13d')
       .attr('transform',textGroupPosition)
     ;
+
+    viz
+    .append('g')
+    .attr('class','text')
+    .attr('transform',textGroupPosition)
+    .append('text')
+    .text(ti[i])
+    .attr('x',tx)
+    .attr('y',ty+70)
+    .style("fill", tc[ti[i]])
+      // .style("writing-mode", "tb")
+      .style("glyph-orientation-vertical", 0)
+      .style('font-family','monospace')
+
+      viz
+      .append('g')
+      .attr('class','text')
+      .attr('transform',textGroupPosition)
+      .append('text')
+      .text('about')
+      .attr('x',tx)
+      .attr('y',ty+50)
+      .style("fill", tc[ti[i]])
+        // .style("writing-mode", "tb")
+        .style("glyph-orientation-vertical", 0)
+        .style('font-family','monospace')
+
+        viz
+        .append('g')
+        .attr('class','text')
+        .attr('transform',textGroupPosition)
+        .append('text')
+        .text('messages')
+        .attr('x',tx)
+        .attr('y',ty+30)
+        .style("fill", tc[ti[i]])
+          // .style("writing-mode", "tb")
+          .style("glyph-orientation-vertical", 0)
+          .style('font-family','monospace')
 //i=group index
   }
 
@@ -128,27 +196,22 @@ function gotData(incomingdata){
   .attr('transform',textGroupPosition)
   ;
 
-  label
-  .append('text')
-  .text(getLabel)
-  .attr('x',yLocationLabel)
-  .attr('y',xLocationLabel)
-  .style('fill',topicColor)
-  .style("fill", "black")
-    .style("writing-mode", "tb")
-    .style("glyph-orientation-vertical", 0)
-    .style('font-family','monospace')
+  function textGroupPosition(){
+    let px= paddingX+180;
+    let py = paddingY+180;
+    return 'translate('+px+','+py+')';
+  }
 
   function xLocationLabel(d,i){
     let indexXforLabbel = getGroup(d)-1;
 
-    return indexXforLabbel*150;
+    return indexXforLabbel*120+50;
   }
 
   function yLocationLabel(d,i){
     let indexYforLabbel = getGroup(d)-1;
 
-    return Math.abs(indexYforLabbel-3)*50+50;
+    return Math.abs(indexYforLabbel-3)*90+80;
   }
 
   function getLabel(d){
@@ -156,7 +219,7 @@ function gotData(incomingdata){
   let topic = d.topic;
   let num = d.topic.length;
 
-    return num + ' messages about '+topic+' '
+    return num + ' messages\nabout\n '+topic+' '
     //how to clean up repetition
 
     // let labeled = [0,0,0,0,0,0,0];
@@ -169,32 +232,32 @@ function gotData(incomingdata){
     //   return
     // }
   }
+  //calculate howmany circles in a group
+  function calTotal(d,i,j){
 
+    console.log(d.topic,j.length);
+    return j.length;
+  }
 
+  function xLocationByTopic(d,i,j){
 
-  //d
-  // datagroup
-  // .append('circle')
-  // .attr('fill', topicColor)
-  // .attr('cx',xLocation)
-  // .attr('cy',yLocation)
-  // .attr('r',radius)
+    let indexX = getGroup(d);
+    return (indexX-1)*150+(i+1)%4*30;
+  }
 
+  function yLocationByTopic(d,i){
+    let indexY = getGroup(d);
+    let ballH = 600;
 
-  // let symbol = viz.selectAll('.symbol').data(transformedData).enter()
-  // .append('g')
-  //     .attr('transform',groupPosition)
-  //
-  // symbol
-  // .attr('class','symbol')
-  //     	.append('rect')
-  //       .attr("x", xLocation)
-  //       .attr("y",yLocation)
-  //       .attr('width',15)
-  //       .attr('height',15)
-  //       .style('fill',mediumColor)
-  //        .attr('transform',mediumPosition)
-  //     	;
+    let yScale = d3.scaleLinear().domain([0,900]).range([0,vizHeight-Math.abs(indexY-4)*80]);
+
+    let ycord = i%7*20+i%13*27+i+Math.abs(indexY-4)*100;
+    let y = yScale(ycord);
+    console.log(y,vizHeight-Math.abs(indexY-4)*50);
+    return y;
+    //Math.floor((i+4)/4)*50;
+  }
+
 
   let byTopic = d3.group(incomingdata, d=> d.topic)
 
@@ -295,30 +358,6 @@ function gotData(incomingdata){
   .attr('transform',mediumPosition)
 
 
-  function yLocationByTopic(d,i){
-    console.log(d.topic,d.topic.length);
-    let indexX = getGroup(d);
-    console.log((indexX-1)*150+(i+1)%4*30);
-    let xScale = d3.scaleLinear().domain([0,1000]).range([0,vizHeight]);
-    let x = xScale((indexX-1)*150+(i+1)%4*30)
-    return x;
-  }
-
-  function xLocationByTopic(d,i){
-    let indexY = getGroup(d);
-    let ballH = 600;
-
-    let yScale = d3.scaleLinear().domain([0,ballH]).range([0,vizWidth/2]);
-    let y = yScale(i*20)
-    let ycord = y+Math.abs(indexY-4)*100;
-    let yc = yScale(ycord)
-    return yc;
-    //Math.floor((i+4)/4)*50;
-  }
-
-}
-function groupPosition(){
-  return 'translate(0,'+paddingY+')';
 }
 
 function getGroup(d){
@@ -345,24 +384,13 @@ function getGroup(d){
   }
 
   return group;
-
 }
 
 //function gotdata end
 
-
-function symbolType(d,i){
-  let symbolGenerator = d3.symbol()
-  .size(100);
-
-  symbolGenerator.type(d3.symbolCircle);
-  console.log(hs[d.howmedium]);
-  return symbolGenerator();
-}
-
 function radius(d,i){
 
-  return d.level*3+6;
+  return d.level*3.5+6;
   //5*Math.round(1+5*Math.random(10,25));//random-return(0,1)
 }
 

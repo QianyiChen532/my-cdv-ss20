@@ -82,6 +82,7 @@ for (let i = 0;i<7;i++){
   .text(tag[i])
   .attr('x',i*boxWidth + i * boxGap+boxWidth/2-20)
   .attr('y', canvasHeight - paddingY*5)
+  .style('font-family','Muli')
   .append('g')
     .attr('transform',groupPosition)
 

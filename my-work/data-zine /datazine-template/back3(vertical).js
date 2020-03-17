@@ -112,10 +112,10 @@ function gotData(incomingdata){
     viz
     .append('g')
     .append('rect')
-    .attr('y',i*150)
-    .attr('x',Math.abs(i-3)*50)//Math.abs(i-3)*50
-    .attr('height',boxWidth)
-    .attr('width',boxHeight/4)//boxHeight-paddingY*3
+    .attr('x',i*150)
+    .attr('y',Math.abs(i-3)*50)//Math.abs(i-3)*50
+    .attr('width',boxWidth)
+    .attr('height',boxHeight/4)//boxHeight-paddingY*3
     .style('fill','#d8cac13d')
       .attr('transform',textGroupPosition)
     ;
@@ -131,8 +131,8 @@ function gotData(incomingdata){
   label
   .append('text')
   .text(getLabel)
-  .attr('x',yLocationLabel)
-  .attr('y',xLocationLabel)
+  .attr('x',xLocationLabel)
+  .attr('y',yLocationLabel)
   .style('fill',topicColor)
   .style("fill", "black")
     .style("writing-mode", "tb")
@@ -295,24 +295,20 @@ function gotData(incomingdata){
   .attr('transform',mediumPosition)
 
 
-  function yLocationByTopic(d,i){
+  function xLocationByTopic(d,i){
     console.log(d.topic,d.topic.length);
     let indexX = getGroup(d);
-    console.log((indexX-1)*150+(i+1)%4*30);
-    let xScale = d3.scaleLinear().domain([0,1000]).range([0,vizHeight]);
-    let x = xScale((indexX-1)*150+(i+1)%4*30)
-    return x;
+    return (indexX-1)*150+(i+1)%4*30;
   }
 
-  function xLocationByTopic(d,i){
+  function yLocationByTopic(d,i){
     let indexY = getGroup(d);
     let ballH = 600;
 
-    let yScale = d3.scaleLinear().domain([0,ballH]).range([0,vizWidth/2]);
+    let yScale = d3.scaleLinear().domain([0,800]).range([0,ballH]);
     let y = yScale(i*20)
     let ycord = y+Math.abs(indexY-4)*100;
-    let yc = yScale(ycord)
-    return yc;
+    return ycord;
     //Math.floor((i+4)/4)*50;
   }
 
