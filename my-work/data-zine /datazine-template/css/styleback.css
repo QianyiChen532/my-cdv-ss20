@@ -28,7 +28,8 @@ p{
 }
 
 .label{
-  white-space: pre-line;
+    font-family: 'Muli', sans-serif;
+    font-size: 13px;
 }
 .backgroundText{
   position: absolute;

@@ -20,12 +20,12 @@ let timeperiod;
 //topic color
 let tc = {
   'news':'#85bdaebd',
-  'personal':'#cea8a8db',
+  'personal':'#ff071763',
   'design&art':'#ff98009c',
   'tech':'#a6cadca3',
   'entertainment':'#e91e1eba',
   'business':'#5e82acc9',
-  'culture':'#ff075f70'
+  'culture':'#dda1b2db'
 }
 
 let ti = {
@@ -106,138 +106,6 @@ function gotData(incomingdata){
   let padding = 40;
   let timeScale = d3.scaleTime().domain([minimumT,maximumT]).range([5-padding/2,boxHeight-4.5*padding]);
 
-  // console.log(incomingdata);
-  let datagroup = viz.selectAll('.datagroup').data(transformedData).enter()
-  .append('g')
-  .attr('class','datagroup')
-  .attr('transform',groupPosition)
-
-  datagroup
-  .attr('class','text')
-  .attr('transform',textGroupPosition)
-  .append('text')
-  .text(calTotal)
-  .attr('x',function(d,i){
-    let indextem = getGroup(d)-1;
-    return indextem*115;
-  })
-  .attr('y',3*90+80+10)
-  .style("fill", topicColor)
-    // .style("writing-mode", "tb")
-    .style("glyph-orientation-vertical", 0)
-    .style('font-family','monospace')
-
-//7tag for 7topics
-  for (let i = 0;i<7;i++){
-
-    let w = 105;
-    let h = 200;
-    let gap= 10;
-    // let tx = i*(gap+w);//w=100,g=10
-    // let ty= Math.abs(i-3)*90+80;
-    let tx = i*(gap+w);
-    let ty = 3*90+80;
-
-    viz
-    .append('g')
-    .append('line')
-    .attr('x',tx)
-    .attr('y',ty)//Math.abs(i-3)*50
-    .attr('width',w)
-    .attr('height',h)//boxHeight-paddingY*3
-    .style('fill','#d8cac13d')
-      .attr('transform',textGroupPosition)
-    ;
-
-    viz
-    .append('g')
-    .attr('class','text')
-    .attr('transform',textGroupPosition)
-    .append('text')
-    .text(ti[i])
-    .attr('x',tx)
-    .attr('y',ty+70)
-    .style("fill", tc[ti[i]])
-      // .style("writing-mode", "tb")
-      .style("glyph-orientation-vertical", 0)
-      .style('font-family','monospace')
-
-      viz
-      .append('g')
-      .attr('class','text')
-      .attr('transform',textGroupPosition)
-      .append('text')
-      .text('about')
-      .attr('x',tx)
-      .attr('y',ty+50)
-      .style("fill", tc[ti[i]])
-        // .style("writing-mode", "tb")
-        .style("glyph-orientation-vertical", 0)
-        .style('font-family','monospace')
-
-        viz
-        .append('g')
-        .attr('class','text')
-        .attr('transform',textGroupPosition)
-        .append('text')
-        .text('messages')
-        .attr('x',tx)
-        .attr('y',ty+30)
-        .style("fill", tc[ti[i]])
-          // .style("writing-mode", "tb")
-          .style("glyph-orientation-vertical", 0)
-          .style('font-family','monospace')
-//i=group index
-  }
-
-  let label = viz.selectAll('.label').data(transformedData).enter()
-  .append('g')
-  .attr('class','label')
-  .attr('transform',textGroupPosition)
-  ;
-
-  function textGroupPosition(){
-    let px= paddingX+180;
-    let py = paddingY+180;
-    return 'translate('+px+','+py+')';
-  }
-
-  function xLocationLabel(d,i){
-    let indexXforLabbel = getGroup(d)-1;
-
-    return indexXforLabbel*120+50;
-  }
-
-  function yLocationLabel(d,i){
-    let indexYforLabbel = getGroup(d)-1;
-
-    return Math.abs(indexYforLabbel-3)*90+80;
-  }
-
-  function getLabel(d){
-
-  let topic = d.topic;
-  let num = d.topic.length;
-
-    return num + ' messages\nabout\n '+topic+' '
-    //how to clean up repetition
-
-    // let labeled = [0,0,0,0,0,0,0];
-    // let indexforLabel = getGroup(d)-1;
-    // console.log(labeled);
-    // if(labeled[indexforLabel] = 0){
-    //   labeled[indexforLabel] = 1;
-    //   return d.topic;
-    // }else {
-    //   return
-    // }
-  }
-  //calculate howmany circles in a group
-  function calTotal(d,i,j){
-
-    console.log(d.topic,j.length);
-    return j.length;
-  }
 
   function xLocationByTopic(d,i,j){
 
@@ -253,7 +121,7 @@ function gotData(incomingdata){
 
     let ycord = i%7*20+i%13*27+i+Math.abs(indexY-4)*100;
     let y = yScale(ycord);
-    console.log(y,vizHeight-Math.abs(indexY-4)*50);
+    // console.log(y,vizHeight-Math.abs(indexY-4)*50);
     return y;
     //Math.floor((i+4)/4)*50;
   }
@@ -272,18 +140,7 @@ function gotData(incomingdata){
   .style('stroke',function(d){return hc[d.howmedium];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
-  //
-  let newsT = viz.selectAll('.newsT').data(byTopic.get('news')).enter()
 
-  newsT
-  .append('g')
-  .attr('class','newsT')
-  .append('text')
-  .style('fill','red')
-  .attr('x',xLocationByTopic)
-  .attr('y',yLocationByTopic)
-  .text(function(d,i){ return d.length;})
-  // .attr('transform',mediumPosition)
 
   let art = viz.selectAll('.art').data(byTopic.get('design&art')).enter()
 
@@ -357,12 +214,86 @@ function gotData(incomingdata){
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
+  let ti = {
+    3:'news',
+    5:'personal',
+    4:'design&art',
+    2:'tech',
+    6:'entertainment',
+    1:'business',
+    0:'culture'
+  }
+
+  // deal with text here
+ let topic = ['culture','business','tech','news','design&art','personal','entertainment']
+ let allLabels = viz.append("g").attr("class", "allLabels");
+
+ function getLabel(d, i){
+   return d;
+ }
+ function getNumber(d, i){
+   return byTopic.get(d).length;
+ }
+ let labelGroups = allLabels.selectAll(".label").data(topic).enter()
+   .append("g")
+   .attr("class", "label")
+ ;
+ function tranlateLabelGroup(d, i) {
+
+   let x = i*150+80+paddingX;
+   let y = 550;
+   return "translate("+x+", "+y+")"
+ }
+
+ labelGroups.attr("transform", tranlateLabelGroup)
+
+ labelGroups
+   .append("text")
+   .style('fill',textColor)
+     .text(getNumber)
+     .attr("y", 0)
+ ;
+ labelGroups
+   .append("text")
+   .style('fill',textColor)
+     .text(getLabel)
+     .attr("y", 40)
+ ;
+ labelGroups
+   .append("text")
+    .style('fill',textColor)
+     .text("messages about")
+     .attr("y", 20)
+ ;
 
 }
 
+function textColor(d){
+  return tc[d];
+}
+
+function textGroupPosition(){
+  let px= paddingX+180;
+  let py = paddingY+180;
+  return 'translate('+px+','+py+')';
+}
+
+function xLocationLabel(d,i){
+  let indexXforLabbel = getGroup(d)-1;
+
+  return indexXforLabbel*120+50;
+}
+
+function yLocationLabel(d,i){
+  let indexYforLabbel = getGroup(d)-1;
+
+  return Math.abs(indexYforLabbel-3)*90+80;
+}
+
+
+
 function getGroup(d){
   let group;
-  let groupIndex;
 
   if(d.topic == 'design&art'){
     group =5;
@@ -386,10 +317,7 @@ function getGroup(d){
   return group;
 }
 
-//function gotdata end
-
 function radius(d,i){
-
   return d.level*3.5+6;
   //5*Math.round(1+5*Math.random(10,25));//random-return(0,1)
 }

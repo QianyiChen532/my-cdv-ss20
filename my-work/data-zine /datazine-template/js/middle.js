@@ -20,23 +20,29 @@ let timeperiod;
 //topic color
 let tc = {
   'news':'#85bdaebd',
-  'personal':'#cea8a8db',
+  'personal':'#ff071763',
   'design&art':'#ff98009c',
   'tech':'#a6cadca3',
   'entertainment':'#e91e1eba',
   'business':'#5e82acc9',
-  'culture':'#ff075f70'
-
+  'culture':'#dda1b2db'
 }
 
 let how = ['talking','wechat/weibo','phonecall/meeting','video/website'];
 //how color
-let hc = {
-  'talking':'#192d69bd',
-  'wechat/weibo':'#ffc100bd',
-  'phone call/meeting':'#70b2e4b5',
-  'video/website':'#e9591e94'
+let fc = {
+  'family':'#192d69bd',
+  'friends':'#ffc100bd',
+  'class':'#70b2e4b5',
+  'teammate':'#e9591e94'
 }
+
+// let hc = {
+//   'talking':'#192d69bd',
+//   'wechat/weibo':'#ffc100bd',
+//   'phone call/meeting':'#70b2e4b5',
+//   'video/website':'#e9591e94'
+// }
 
 //how to symbol
 let hs = {
@@ -59,10 +65,6 @@ let viz = d3.select('#container')
   .attr('transform',groupPosition)
 ;
 
-let div = d3.select("body").append("div")
-.attr("class", "tooltip")
-.style("opacity", 0);
-
 let tag = ['Monday','Tuesday','Wednesday','Thursday', 'Friday','Saturday', 'Sunday'];
 
 for (let i = 0;i<7;i++){
@@ -83,6 +85,7 @@ for (let i = 0;i<7;i++){
   .attr('x',i*boxWidth + i * boxGap+boxWidth/2-20)
   .attr('y', canvasHeight - paddingY*5)
   .style('font-family','Muli')
+  .style('fill','#6c6a6a')
   .append('g')
     .attr('transform',groupPosition)
 
@@ -130,7 +133,6 @@ let timeScale = d3.scaleTime().domain([minimumT,maximumT]).range([5-padding/2,bo
   .attr('class','datagroup')
     .attr('transform',groupPosition)
 
-  //d
   datagroup
   .append('circle')
   .attr('fill', topicColor)
@@ -155,49 +157,52 @@ text
 
 let symbol = viz.selectAll('.symbol').data(transformedData).enter()
 .append('g')
+.attr('class','symbol')
     .attr('transform',groupPosition)
 
 symbol
-.attr('class','symbol')
-    	.append('rect')
-      .attr("x", xLocation)
-      .attr("y",yLocation)
-      .attr('width',15)
-      .attr('height',15)
-      .style('fill',mediumColor)
-       .attr('transform',mediumPosition)
-       //
-       // .append('circle')
-       //  .attr("cx", xLocation)
-       //  .attr("cy",yLocation)
-       //  .attr('r',10)
-       //  .style('fill',mediumColor)
-       //   .attr('transform',mediumPosition)
+    	.append('path')
+      .attr("x", 0)
+      .attr("y",0)
+      .style('fill',fromColor)
+      .attr('d',symbolType)
+       .attr('transform',sybomlPosition)
+       // .attr('transform',mediumPosition)
     	;
 
-  // d3.selectAll('circle')
-  // .on("mouseover", function(d) {
-  //   div.transition()
-  //   .duration(200)
-  //   .style("opacity", .9);
-  //   div	.html(d.howmedium + "<br/>"  + d.topic)
-  //   .style("left", (d3.event.pageX) + "px")
-  //   .style("top", (d3.event.pageY - 40) + "px");
-  // })
-  // .on("mouseout", function(d) {
-  //   div.transition()
-  //   .duration(500)
-  //   .style("opacity", 0);
-  // });
-  // // .attr('class',function(d){return (d.from).toString();})
-  // // .on('mouseover',info)
-  // ;
-//-----medium--
-//   let byHow = d3.group(incomingdata, d=> d.howmedium)
-//
+  function sybomlPosition(d,i){
+    let len = d.topic.length*9;
+    // return 'translate(-9,'+len*8+')';
+
+    let x = (d.weekday-1)*boxWidth + (d.weekday-1) * boxGap;
+
+    if(d.date<=7){
+      weekNum = 1;
+    }
+    else{
+      weekNum = 2;
+    }
+    let margin = -50;
+    let xCor = margin+x+(weekNum % 2)*boxWidth/3+i%5*21-2;
+
+    if(d.date<=7){
+        weekNum = 1;
+    }
+    else{
+        weekNum = 2;
+    }
+
+    let y = timeScale(d.time)+len;
+    // console.log(y);
+
+    return 'translate('+xCor+','+y+')';
+
+
+  }
 
 
 function xLocation(d,i){
+  console.log(d);
   let x = (d.weekday-1)*boxWidth + (d.weekday-1) * boxGap;
 
   if(d.date<=7){
@@ -207,7 +212,7 @@ function xLocation(d,i){
     weekNum = 2;
   }
   let margin = -50;
-  let xCor = margin+x+(weekNum % 2)*boxWidth/3+i%4*21;
+  let xCor = margin+x+(weekNum % 2)*boxWidth/3+i%5*21;
   return xCor;
 }
 function yLocation(d,i){
@@ -219,24 +224,44 @@ function yLocation(d,i){
   }
 
   let y = timeScale(d.time);
-  console.log(y);
+  // console.log(y);
 
   return y;
   //boxHeight/4*timeperiod+(weekNum % 2)*5-i%5*25;
 }
 }
+
 function groupPosition(){
   return 'translate('+paddingX+','+paddingY+')';
 }
 
-//function gotdata end
-
 function symbolType(d,i){
+
   let symbolGenerator = d3.symbol()
   	.size(100);
+    //
+    // let hs = {
+    //   'talking':'symbolCircle',
+    //   'wechat/weibo':'symbolCross',
+    //   'phone call/meeting':'symbolDiamond',
+    //   'video/website':'symbolStar'
+    // }
 
-    symbolGenerator.type(d3.symbolCircle);
-      console.log(hs[d.howmedium]);
+    if(d.howmedium == 'talking'){
+        symbolGenerator.type(d3.symbolTriangle);
+    }
+    if(d.howmedium == 'wechat/weibo'){
+        symbolGenerator.type(d3.symbolSquare);
+    }
+    if(d.howmedium == 'phone call/meeting'){
+        symbolGenerator.type(d3.symbolDiamond);
+    }
+    if(d.howmedium == 'video/website'){
+        symbolGenerator.type(d3.symbolStar);
+    }
+
+    // symbolGenerator.type(d3.symbolStar);
+    //   console.log(hs[d.howmedium]);
     return symbolGenerator();
 }
 
@@ -251,9 +276,9 @@ function mediumPosition(d,i){
   return 'translate(-9,'+len*8+')';
 }
 
-function mediumColor(d,i){
-  let c = hc[d.howmedium];
-  console.log(d.howmedium.length);
+function fromColor(d,i){
+  let c = fc[d.from];
+
   return c.toString();
 }
 
