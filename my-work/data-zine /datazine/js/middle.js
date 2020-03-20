@@ -85,7 +85,7 @@ for (let i = 0;i<7;i++){
   .attr('x',i*boxWidth + i * boxGap+boxWidth/2-20)
   .attr('y', canvasHeight - paddingY*5)
   .style('font-family','Muli')
-  .style('fill','#6c6a6a')
+  .style('fill','burlywood')
   .append('g')
     .attr('transform',groupPosition)
 
@@ -239,13 +239,6 @@ function symbolType(d,i){
 
   let symbolGenerator = d3.symbol()
   	.size(100);
-    //
-    // let hs = {
-    //   'talking':'symbolCircle',
-    //   'wechat/weibo':'symbolCross',
-    //   'phone call/meeting':'symbolDiamond',
-    //   'video/website':'symbolStar'
-    // }
 
     if(d.howmedium == 'talking'){
         symbolGenerator.type(d3.symbolTriangle);

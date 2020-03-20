@@ -1,0 +1,14 @@
+#container{
+  background-image: url('../asset/cover.png');
+  background-size: contain;
+}
+
+body{
+  width, height: 100%;
+  margin: 40px;
+  background-color: antiquewhite;
+}
+#viz{
+  width:100%;
+  height: 100%;
+}
