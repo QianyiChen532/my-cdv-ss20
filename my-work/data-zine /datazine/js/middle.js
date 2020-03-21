@@ -200,9 +200,14 @@ symbol
 
   }
 
-  let yAxisGroup = viz.append('g').attr('class','yAxis');
+  let yAxisGroup = viz.append('g').attr('class','yAxis')
+  .attr('transform',groupPosition);
     let yAxis = d3.axisLeft(timeScale);
     yAxisGroup.call(yAxis);//要call才会出现 类似show
+
+
+
+
 
 function xLocation(d,i){
   console.log(d);
