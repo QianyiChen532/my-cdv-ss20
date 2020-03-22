@@ -40,11 +40,11 @@ let ti = {
 
 let how = ['talking','wechat/weibo','phonecall/meeting','video/website'];
 //how color
-let hc = {
-  'talking':'#192d69bd',
-  'wechat/weibo':'#ffc100bd',
-  'phone call/meeting':'#70b2e4b5',
-  'video/website':'#e9591e94'
+let fc = {
+  'family':'#192d69bd',
+  'friends':'#ffc100bd',
+  'class':'#70b2e4b5',
+  'teammate':'#e9591e94'
 }
 
 //how to symbol
@@ -137,7 +137,7 @@ function gotData(incomingdata){
   .attr('cx',xLocationByTopic)
   .attr('cy',yLocationByTopic)
   .attr('r',radius)
-  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('stroke',function(d){return fc[d.from];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
@@ -150,7 +150,7 @@ function gotData(incomingdata){
   .attr('cx',xLocationByTopic)
   .attr('cy',yLocationByTopic)
   .attr('r',radius)
-  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('stroke',function(d){return fc[d.from];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
@@ -162,7 +162,7 @@ function gotData(incomingdata){
   .attr('cx',xLocationByTopic)
   .attr('cy',yLocationByTopic)
   .attr('r',radius)
-  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('stroke',function(d){return fc[d.from];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
@@ -174,7 +174,7 @@ function gotData(incomingdata){
   .attr('cx',xLocationByTopic)
   .attr('cy',yLocationByTopic)
   .attr('r',radius)
-  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('stroke',function(d){return fc[d.from];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
@@ -186,7 +186,7 @@ function gotData(incomingdata){
   .attr('cx',xLocationByTopic)
   .attr('cy',yLocationByTopic)
   .attr('r',radius)
-  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('stroke',function(d){return fc[d.from];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
@@ -198,7 +198,7 @@ function gotData(incomingdata){
   .attr('cx',xLocationByTopic)
   .attr('cy',yLocationByTopic)
   .attr('r',radius)
-  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('stroke',function(d){return fc[d.from];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
@@ -210,7 +210,7 @@ function gotData(incomingdata){
   .attr('cx',xLocationByTopic)
   .attr('cy',yLocationByTopic)
   .attr('r',radius)
-  .style('stroke',function(d){return hc[d.howmedium];})
+  .style('stroke',function(d){return fc[d.from];})
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
@@ -327,10 +327,10 @@ function mediumPosition(d,i){
   return 'translate(100,60)';
 }
 
-function mediumColor(d,i){
-  let c = hc[d.howmedium];
-  return c.toString();
-}
+// function mediumColor(d,i){
+//   let c = fc[d.from];
+//   return c.toString();
+// }
 
 function topicColor(d,i){
 

@@ -36,14 +36,6 @@ let fc = {
   'class':'#70b2e4b5',
   'teammate':'#e9591e94'
 }
-
-// let hc = {
-//   'talking':'#192d69bd',
-//   'wechat/weibo':'#ffc100bd',
-//   'phone call/meeting':'#70b2e4b5',
-//   'video/website':'#e9591e94'
-// }
-
 //how to symbol
 let hs = {
   'talking':'symbolCircle',
@@ -94,18 +86,19 @@ for (let i = 0;i<7;i++){
 }
 
 //filter timescale
-let timeParse = d3.timeParse("%H:%M");
+// let timeParse = d3.timeParse("%H:%M");
 
 function mapFunction(d){
-  d.time = timeParse(d.time);
-  console.log(d.time);
-  return timeParse(d.time);
+  //the json file already make it to standard format so no need to use time parse, but new dat instead
+
+  d.time = new Date(d.time);
+  return d;
 }
 
 function transformData(dataToTransform){
 
 let timeCorrected = dataToTransform.map(mapFunction);
-return dataToTransform;
+return timeCorrected;
 }
 
 //load json
@@ -113,9 +106,9 @@ return dataToTransform;
 d3.json('data.json').then(gotData);
 
 function gotData(incomingdata){
-  console.log(incomingdata);
+  // console.log(incomingdata);
   let transformedData = transformData(incomingdata);
-console.log(transformedData);
+// console.log(transformedData);
 
 function getTime(d){
   return d.time;
@@ -167,7 +160,7 @@ symbol
       .style('fill',fromColor)
       .attr('d',symbolType)
        .attr('transform',sybomlPosition)
-       // .attr('transform',mediumPosition)
+
     	;
 
   function sybomlPosition(d,i){
@@ -200,17 +193,17 @@ symbol
 
   }
 
+  //y axis
+
   let yAxisGroup = viz.append('g').attr('class','yAxis')
-  .attr('transform',groupPosition);
+  // .style('stroke','burlywood')
+    .attr('transform','translate(0,'+paddingY+')');
     let yAxis = d3.axisLeft(timeScale);
-    yAxisGroup.call(yAxis);//要call才会出现 类似show
-
-
-
+    yAxisGroup.call(yAxis);
 
 
 function xLocation(d,i){
-  console.log(d);
+
   let x = (d.weekday-1)*boxWidth + (d.weekday-1) * boxGap;
 
   if(d.date<=7){
@@ -284,7 +277,7 @@ function fromColor(d,i){
 }
 
 function topicColor(d,i){
-  console.log(i,d.topic,tc[d.topic]);
+
   return tc[d.topic];
 }
 
