@@ -6,3 +6,7 @@ I learned this one from a class I took last semester in ITP. Although this is an
  
 ### [The Birthday Paradox](https://pudding.cool/2018/04/birthday-paradox/)
 This article explain the process of the birthday paradox(the math about how many people do we need in a room to have a 50% chance that two people have the same birthday) using simple illustration and cute animation. The animation simulated a dynamic process as the number of people in a room increase, and the graph above shows corresponding datapoint.
+
+### [Why Are Data-Viz Designers So Obsessed With Circles?-WIRED)](https://www.wired.com/2017/05/data-viz-designers-obsessed-circles/)
+
+This article is a review of a book called “Book Of Circles: Visualizing Spheres of Knowledge” written by Manuel Lima. The book started from a question asked to the author - “why so many of the visualizations he was showing tended to be circular”. Lima takes historical and psychological research to examine to question and gives a thorough answer in that book. The short version would be that because “circles are exceptionally versatile”. For more details: Lima explains further about his book in this (article on Medium)[https://medium.com/@mslima/the-book-of-circles-4b511a5bcffc].
