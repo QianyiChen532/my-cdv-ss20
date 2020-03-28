@@ -1,3 +1,5 @@
+//d3 ease https://github.com/d3/d3-ease
+
 console.log("hi");
 //data from https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382
 
