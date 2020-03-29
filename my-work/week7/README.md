@@ -3,7 +3,9 @@
 ### Topic 1: Cat & Dogs in COVID-19
 dataset:
 [PetFinder API](https://www.petfinder.com/search/cats-for-adoption/gu/piti-municipality/)
+
 [Cat Breeds Dataset(for adoption)](https://www.kaggle.com/ma7555/cat-breeds-dataset#cats.csv)
+
 [Dogs Adopted](https://github.com/the-pudding/data/tree/master/dog-shelters)
 
 All of these three are related to the API of PetFinder. I am inspired by the news about stray dogs and cats during this COVID-19 and want to visualize the need.
@@ -20,4 +22,5 @@ My current wild thoughts for this one is to scrape weibo data around the topic o
 For this idea, I guess both the restriction on API and semantic analysis will bring difficulties. But I'll be super excited if I can make it.
 
 related: [returns to education in US](https://ourworldindata.org/returns-to-education)
+
 [UK post graduation earnings](https://www.gov.uk/government/collections/statistics-higher-education-graduate-employment-and-earnings)
