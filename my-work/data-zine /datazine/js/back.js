@@ -154,6 +154,13 @@ function gotData(incomingdata){
   .style('fill',topicColor)
   .attr('transform',mediumPosition)
 
+  .append('path')
+  .attr("x", 100)
+  .attr("y",200)
+  .style('fill','red')
+  .attr('d',symbolType)
+   // .attr('transform',sybomlPosition)
+
   let entertainment = viz.selectAll('.entertainment').data(byTopic.get('entertainment')).enter()
 
   .append('g')
@@ -335,4 +342,27 @@ function mediumPosition(d,i){
 function topicColor(d,i){
 
   return tc[d.topic];
+}
+
+function symbolType(d,i){
+
+  let symbolGenerator = d3.symbol()
+  	.size(100);
+
+    if(d.howmedium == 'talking'){
+        symbolGenerator.type(d3.symbolTriangle);
+    }
+    if(d.howmedium == 'wechat/weibo'){
+        symbolGenerator.type(d3.symbolSquare);
+    }
+    if(d.howmedium == 'phone call/meeting'){
+        symbolGenerator.type(d3.symbolDiamond);
+    }
+    if(d.howmedium == 'video/website'){
+        symbolGenerator.type(d3.symbolStar);
+    }
+
+    // symbolGenerator.type(d3.symbolStar);
+    //   console.log(hs[d.howmedium]);
+    return symbolGenerator();
 }
