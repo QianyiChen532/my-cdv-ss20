@@ -16,9 +16,9 @@ let xScale, xAxis, yMax, yDomain, yScale;
 
 // put the svg onto the page:
 viz = d3.select("#container")
-  .append("svg")
-    .style("width", w)
-    .style("height", h)
+.append("svg")
+.style("width", w)
+.style("height", h)
 ;
 xAxisGroup = viz.append("g").classed("xAxis", true);
 graphGroup = viz.append('g').classed('graphGroup',true);
@@ -27,32 +27,26 @@ graphGroup = viz.append('g').classed('graphGroup',true);
 // the functions we use to do the actual work are defined in dataManager.js
 function add(){
   addDatapoints(1);
-  axisUpdate();
-  graphUpdate();
-  update();
+  axisDisplay();
+  updateAdd();
 }
 document.getElementById("buttonA").addEventListener("click", add);
 
 function remove(){
   removeDatapoints(1);
-  axisUpdate();
-  graphUpdate();
-  update();
+    axisDisplay();
+  updateExit();
 }
 document.getElementById("buttonB").addEventListener("click", remove);
 
 function removeAndAdd(){
   removeAndAddDatapoints(1,1);
-  axisUpdate();
-  graphUpdate();
-  update();
+
 }
 document.getElementById("buttonC").addEventListener("click", removeAndAdd);
 
 function sortData(){
   sortDatapoints();
-  axisUpdate();
-  graphUpdate();
   update();
 
 }
@@ -60,8 +54,6 @@ document.getElementById("buttonD").addEventListener("click", sortData);
 
 function shuffleData(){
   shuffleDatapoints();
-  axisUpdate();
-  graphUpdate();
   update();
 
 }
@@ -72,26 +64,24 @@ function surprise(){
   shuffleDatapoints();
   removeAndAddDatapoints(r,r+1);
   console.log(r);
-  axisUpdate();
-  graphUpdate();
   update();
 }
 document.getElementById("buttonF").addEventListener("click", surprise);
 
-
-function axisUpdate(){
+axisDisplay();
+function axisDisplay(){
   //x scale band scale 柱状图的宽 的感觉？
   let allNames = data.map(function(d){return d.key});
   // console.log(allNames);
 
   xScale = d3.scaleBand()
-      .domain(allNames)
-      .range([padding, w-padding])
-      .paddingInner(0.1)
+  .domain(allNames)
+  .range([padding, w-padding])
+  .paddingInner(0.1)
   ;
 
-   xAxis = d3.axisBottom(xScale);
-   xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;})//if doesn't have this line, will return datas in all names//怎么match到emoji？
+  xAxis = d3.axisBottom(xScale);
+  xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;})//if doesn't have this line, will return datas in all names//怎么match到emoji？
 
   xAxisGroup.call(xAxis);
 
@@ -125,13 +115,13 @@ function axisUpdate(){
   xAxisGroup.transition().call(xAxis).selectAll("text").attr("font-size", 18);
 }
 
-
-function graphUpdate(){
+graphDisplay();
+function graphDisplay(){
 
   //update graph
   let elementsForPage = graphGroup.selectAll(".datapoint").data(data);
   //！do not have enter()
-  console.log("D3's assessment of whats needed on the page:", elementsForPage);
+  // console.log("D3's assessment of whats needed on the page:", elementsForPage);
 
   let enteringElements = elementsForPage.enter();
   let enteringDataGroups = enteringElements.append('g').classed("datapoint", true);
@@ -154,18 +144,18 @@ function graphUpdate(){
   .attr('fill','black')
   ;
 
+
   let exitingElements = elementsForPage.exit();
 
   //like taking enter[]and exiting[]from the whole elementsforpage array
   console.log("enteringElements", enteringElements);
   console.log("exitingElements", exitingElements);
 
-  //update
-
-
 }
 
-function update(){
+//change data（graph）
+function updateAdd(){
+
 
   console.log("new data",data);
   elementsForPage = graphGroup.selectAll(".datapoint").data(data);
@@ -177,93 +167,120 @@ function update(){
   console.log(enteringElements);
 
   elementsForPage.attr("transform", function(d, i){
-  return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
-});
+    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
+  });
 
-elementsForPage.transition().duration(1000).attr("transform", function(d, i){
-  return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
-});
+  elementsForPage.transition().duration(500).attr("transform", function(d, i){
+    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
+  });
 
-elementsForPage.select("rect")
- .transition()
- .duration(200)
- .attr("width", function(){
+  elementsForPage.select("rect")
+  .transition()
+  .duration(200)
+  .attr("width", function(){
     return xScale.bandwidth();
- })
- .attr("y", function(d,i){
-   return -yScale(d.value);
- })
- .attr("height", function(d, i){
-   return yScale(d.value);
- })
-;
-exitingElements = elementsForPage.exit();
+  })
+  .attr("y", function(d,i){
+    return -yScale(d.value);
+  })
+  .attr("height", function(d, i){
+    return yScale(d.value);
+  })
+  ;
 
-// exitingElements.remove();
-
-let enteringDataGroups = enteringElements
+  let incomingDataGroups = enteringElements
   .append("g")
-    .classed("datapoint", true)
-;
-console.log(enteringDataGroups);
-// position the groups:
-enteringDataGroups.attr("transform", function(d, i){
-  return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
-});
+  .classed("datapoint", true)
+  ;
 
-enteringDataGroups
+  // position the groups:
+  incomingDataGroups.attr("transform", function(d, i){
+    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
+  });
+
+  incomingDataGroups
   .append("rect")
-    .attr("width", function(){
-      return xScale.bandwidth();
-    })
-    .attr("y", function(d,i){
-      return -yScale(d.value);
-    })
-    .attr("height", function(d, i){
-      return yScale(d.value);
-    })
-    .attr("fill", "red")
- ;
+  .attr("width", function(){
+    return xScale.bandwidth();
+  })
+  .attr("y", function(d,i){
+    return -yScale(d.value);
+  })
+  .attr("height", function(d, i){
+    return yScale(d.value);
+  })
+  .attr("fill", "black")
+  ;
 
- enteringDataGroups
+  incomingDataGroups
   .append("rect")
-    .attr("y", function(d,i){
-      return 0;
-    })
-    .attr("height", function(d, i){
-      return 0;
-    })
-    .attr("width", function(){
-      return xScale.bandwidth();
-    })
-    .attr("fill", "#F27294")
-    .transition()
-    // .delay(1200)
-    .duration(2000)
-    .attr("y", function(d,i){
-      return -yScale(d.value);
-    })
-    .attr("height", function(d, i){
-      return yScale(d.value);
-    })
-    .attr("fill", "black")
- ;
-
- exitingElements
-     .select('rect')
-     .transition()
-     .duration(1000)
-     .attr('fill', 'blue')
- exitingElements
-     .select('rect')
-     .transition()
-     .duration(1000)
-     .attr('width', xScale.bandwidth)
-     .attr('height', 0)
-     .attr('y', 0)
-     .remove()
+  .attr("y", function(d,i){
+    return 0;
+  })
+  .attr("height", function(d, i){
+    return 0;
+  })
+  .attr("width", function(){
+    return xScale.bandwidth();
+  })
+  .attr("fill", "#F27294")
+  .transition()
+  .delay(200)
+  .duration(1000)
+  .attr("y", function(d,i){
+    return -yScale(d.value);
+  })
+  .attr("height", function(d, i){
+    return yScale(d.value);
+  })
+  .attr("fill", "black")
+  ;
 }
 
+function updateExit(){
 
-axisUpdate();
-graphUpdate();
+  // y scale
+  yMax = d3.max(data, function(d){return d.value});
+  yDomain = [0, yMax+yMax*0.1];
+  yScale.domain(yDomain);
+
+  xAxisGroup.transition().call(xAxis).selectAll("text").attr("font-size", 18);
+
+  console.log("new data",data);
+  elementsForPage = graphGroup.selectAll(".datapoint").data(data);
+  console.log(elementsForPage);
+
+
+  elementsForPage.attr("transform", function(d, i){
+    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
+  });
+
+  elementsForPage.transition().duration(500).attr("transform", function(d, i){
+    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
+  });
+
+  elementsForPage.select("rect")
+  .transition()
+  .duration(200)
+  .attr("width", function(){
+    return xScale.bandwidth();
+  })
+  .attr("y", function(d,i){
+    return -yScale(d.value);
+  })
+  .attr("height", function(d, i){
+    return yScale(d.value);
+  })
+  ;
+  exitingElements = elementsForPage.exit();
+
+  exitingElements.select("rect")
+  .transition()
+  .duration(1000)
+.attr("fill", "#04ADBF")
+  .attr("y", 0)
+.attr("height", 0);
+
+exitingElements.transition().delay(2000).remove();
+
+}
