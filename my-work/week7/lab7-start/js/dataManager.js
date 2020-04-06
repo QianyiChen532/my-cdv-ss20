@@ -15,7 +15,7 @@
 
 let getRandom = d3.randomNormal(50, 11); //as so often, d3 returns a function that we can use
 let testRandomNumber = getRandom();
-console.log("testing random number:", testRandomNumber);
+//console.log("testing random number:", testRandomNumber);
 
 //                      _                       _        _
 //  _ __ __ _ _ __   __| | ___  _ __ ___    ___| |_ _ __(_)_ __   __ _
@@ -36,7 +36,7 @@ function randomKey(length) {
    return result;
 }
 let testRandomKey = randomKey(5);
-console.log("testing random key:", testRandomKey);
+//console.log("testing random key:", testRandomKey);
 
 
 //                      _                                        _ _
@@ -53,7 +53,7 @@ function randomEmoji(){
   return emojis[0];
 }
 let testRandomEmoji = randomEmoji();
-console.log("testing random emoji:", testRandomEmoji);
+// console.log("testing random emoji:", testRandomEmoji);
 
 
 //
@@ -72,7 +72,7 @@ function newDatapoint(){
   return {key: randKey, name:testRandomEmoji, value: randomValue}
 }//need a unique key-like randkey
 let testNewDatapoint = newDatapoint();
-console.log("testing new datapoint:", testNewDatapoint);
+// console.log("testing new datapoint:", testNewDatapoint);
 
 
 //  _       _ _   _       _       _       _
@@ -90,7 +90,7 @@ function initializeData(){
   }
 }
 initializeData();
-console.log("initial data:", data);
+// console.log("initial data:", data);
 
 //
 //            _     _       _       _                    _       _
@@ -105,7 +105,7 @@ function addDatapoints(num){
   for(let i = 0; i < num; i++){
     data.push(newDatapoint());
   }
-  console.log("added", num, "datapoints. data:", data);
+  // console.log("added", num, "datapoints. data:", data);
 }
 // test it!
 addDatapoints(1);
@@ -126,7 +126,7 @@ function removeDatapoints(num){
     let randomIndex = Math.floor(Math.random()*data.length)
     data.splice(randomIndex, 1);
   }
-  console.log("removed", num, "datapoints. data:", data);
+  // console.log("removed", num, "datapoints. data:", data);
 
 }
 // test it!
@@ -161,7 +161,7 @@ removeAndAddDatapoints(1, 1);
 
 function sortDatapoints(){
   data.sort(function(a,b){return a.value-b.value});
-  console.log("sorted data:", data);
+  // console.log("sorted data:", data);
 
 }
 //test it!
@@ -179,10 +179,10 @@ sortDatapoints();
 
 function shuffleDatapoints(){
   d3.shuffle(data);
-  console.log("shuffled data:", data);
+  // console.log("shuffled data:", data);
 
 }
 //test it!
 shuffleDatapoints();
-
+//the console will return the latest one!
 //now bind this function to a button in script.js
