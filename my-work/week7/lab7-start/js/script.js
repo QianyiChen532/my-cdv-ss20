@@ -125,7 +125,10 @@ graphDisplay();
 function graphDisplay(){
 
   //update graph
-  let elementsForPage = graphGroup.selectAll(".datapoint").data(data);
+  function assignKeys(d){
+    return d.key;
+  }
+  let elementsForPage = graphGroup.selectAll(".datapoint").data(data,assignKeys);
   //！do not have enter()
   // console.log("D3's assessment of whats needed on the page:", elementsForPage);
 
@@ -161,12 +164,12 @@ function graphDisplay(){
 
 //change data（graph）
 function updateAddExit(){
-  // function assignKeys(d){
-  //   return d.key;
-  // }//this will not remove the last one and will affect the rearrangment
-
+  //this will not remove the last one and will affect the rearrangment
+  function assignKeys(d){
+    return d.key;
+  }
   console.log("new data",data);
-  elementsForPage = graphGroup.selectAll(".datapoint").data(data);
+  elementsForPage = graphGroup.selectAll(".datapoint").data(data,assignKeys);
   console.log('elementsForPage',elementsForPage);
 
   enteringElements = elementsForPage.enter();
