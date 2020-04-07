@@ -117,7 +117,7 @@ function axisDisplay(){
   yDomain = [0, yMax+yMax*0.1];
   yScale.domain(yDomain);
 
-  xAxisGroup.transition().call(xAxis).selectAll("text").attr("font-size", 18);
+  xAxisGroup.transition().delay(200).duration(1200).call(xAxis).selectAll("text").attr("font-size", 18);
 }
 
 graphDisplay();
@@ -191,12 +191,12 @@ function updateAddExit(){
   })
   .attr("height", function(d, i){
     return yScale(d.value);
-  })
+  });
 
   // .transition()
   // .duration(200)
   // .attr("fill", "black")
-  ;
+
 
   let incomingDataGroups = enteringElements
   .append("g")
@@ -219,9 +219,8 @@ function updateAddExit(){
   .attr("width", function(){
     return xScale.bandwidth();
   })
-  .attr("fill", "#F27294")
+
   .transition()
-  .delay(200)
   .duration(800)
   .attr("y", function(d,i){
     return -yScale(d.value);
@@ -229,23 +228,29 @@ function updateAddExit(){
   .attr("height", function(d, i){
     return yScale(d.value);
   })
+  .attr("fill", "#F27294")//if press too quickly the bar will remain pink
   .transition()
   .delay(200)
-  .duration(1000)
+  .duration(500)
   .attr("fill", "black")
   ;
 //add transition to color and width separately?
 
   let  exitingElements = elementsForPage.exit();
   exitingElements.select("rect")
-  .attr("fill", "#04ADBF")
-  .transition()
-  .delay(100)
-  .duration(500)
+  .attr("fill", "#04ADBF")//put color first
+  .transition()//delete dura
   .attr("y", 0)
   .attr("height", 0)
-  .remove()
+
 ;
+
+exitingElements
+.transition()
+.duration(300)
+.remove();
+//playing with transition on the two parts above to adjust the color changing
+
 //if it is not removed, the new element will also be blue, meaning it is reused
 console.log('exitingElements',exitingElements);
 
