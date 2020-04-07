@@ -28,33 +28,37 @@ graphGroup = viz.append('g').classed('graphGroup',true);
 function add(){
   addDatapoints(1);
   axisDisplay();
-  updateAdd();
+  updateAddExit();
 }
 document.getElementById("buttonA").addEventListener("click", add);
 
 function remove(){
   removeDatapoints(1);
-    axisDisplay();
-  updateExit();
+  axisDisplay();
+  updateAddExit();
 }
 document.getElementById("buttonB").addEventListener("click", remove);
 
 function removeAndAdd(){
-  removeAndAddDatapoints(1,1);
 
+  removeAndAddDatapoints(1,1);
+  axisDisplay();
+  updateAddExit();
 }
 document.getElementById("buttonC").addEventListener("click", removeAndAdd);
 
 function sortData(){
   sortDatapoints();
-  update();
+  axisDisplay();
+  updateAddExit();
 
 }
 document.getElementById("buttonD").addEventListener("click", sortData);
 
 function shuffleData(){
   shuffleDatapoints();
-  update();
+  axisDisplay();
+  updateAddExit();
 
 }
 document.getElementById("buttonE").addEventListener("click", shuffleData);
@@ -62,9 +66,10 @@ document.getElementById("buttonE").addEventListener("click", shuffleData);
 function surprise(){
   let r = Math.floor(Math.random(0,20)*5);
   shuffleDatapoints();
-  removeAndAddDatapoints(r,r+1);
+  removeAndAddDatapoints(r,r);
   console.log(r);
-  update();
+  axisDisplay();
+  updateAddExit();
 }
 document.getElementById("buttonF").addEventListener("click", surprise);
 
@@ -116,6 +121,7 @@ function axisDisplay(){
 }
 
 graphDisplay();
+//initial graph
 function graphDisplay(){
 
   //update graph
@@ -131,6 +137,7 @@ function graphDisplay(){
   });
 
   enteringDataGroups
+
   .append('rect')
   .attr('width',function(){
     return xScale.bandwidth();
@@ -144,39 +151,35 @@ function graphDisplay(){
   .attr('fill','black')
   ;
 
-
-  let exitingElements = elementsForPage.exit();
+  // let exitingElements = elementsForPage.exit();
 
   //like taking enter[]and exiting[]from the whole elementsforpage array
   console.log("enteringElements", enteringElements);
-  console.log("exitingElements", exitingElements);
+
 
 }
 
 //change data（graph）
-function updateAdd(){
-
+function updateAddExit(){
+  // function assignKeys(d){
+  //   return d.key;
+  // }//this will not remove the last one and will affect the rearrangment
 
   console.log("new data",data);
   elementsForPage = graphGroup.selectAll(".datapoint").data(data);
-  console.log(elementsForPage);
+  console.log('elementsForPage',elementsForPage);
 
   enteringElements = elementsForPage.enter();
-
-
-  console.log(enteringElements);
-
-  elementsForPage.attr("transform", function(d, i){
-    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
-  });
+  console.log('enteringElements',enteringElements);
 
   elementsForPage.transition().duration(500).attr("transform", function(d, i){
     return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
   });
 
+  //update element
   elementsForPage.select("rect")
   .transition()
-  .duration(200)
+  .duration(1200)
   .attr("width", function(){
     return xScale.bandwidth();
   })
@@ -186,6 +189,10 @@ function updateAdd(){
   .attr("height", function(d, i){
     return yScale(d.value);
   })
+
+  // .transition()
+  // .duration(200)
+  // .attr("fill", "black")
   ;
 
   let incomingDataGroups = enteringElements
@@ -197,20 +204,6 @@ function updateAdd(){
   incomingDataGroups.attr("transform", function(d, i){
     return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
   });
-
-  incomingDataGroups
-  .append("rect")
-  .attr("width", function(){
-    return xScale.bandwidth();
-  })
-  .attr("y", function(d,i){
-    return -yScale(d.value);
-  })
-  .attr("height", function(d, i){
-    return yScale(d.value);
-  })
-  .attr("fill", "black")
-  ;
 
   incomingDataGroups
   .append("rect")
@@ -226,61 +219,32 @@ function updateAdd(){
   .attr("fill", "#F27294")
   .transition()
   .delay(200)
-  .duration(1000)
+  .duration(800)
   .attr("y", function(d,i){
     return -yScale(d.value);
   })
   .attr("height", function(d, i){
     return yScale(d.value);
   })
+  .transition()
+  .delay(200)
+  .duration(1000)
   .attr("fill", "black")
   ;
-}
+//add transition to color and width separately?
 
-function updateExit(){
-
-  // y scale
-  yMax = d3.max(data, function(d){return d.value});
-  yDomain = [0, yMax+yMax*0.1];
-  yScale.domain(yDomain);
-
-  xAxisGroup.transition().call(xAxis).selectAll("text").attr("font-size", 18);
-
-  console.log("new data",data);
-  elementsForPage = graphGroup.selectAll(".datapoint").data(data);
-  console.log(elementsForPage);
-
-
-  elementsForPage.attr("transform", function(d, i){
-    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
-  });
-
-  elementsForPage.transition().duration(500).attr("transform", function(d, i){
-    return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
-  });
-
-  elementsForPage.select("rect")
-  .transition()
-  .duration(200)
-  .attr("width", function(){
-    return xScale.bandwidth();
-  })
-  .attr("y", function(d,i){
-    return -yScale(d.value);
-  })
-  .attr("height", function(d, i){
-    return yScale(d.value);
-  })
-  ;
-  exitingElements = elementsForPage.exit();
-
+  let  exitingElements = elementsForPage.exit();
   exitingElements.select("rect")
+  .attr("fill", "#04ADBF")
   .transition()
-  .duration(1000)
-.attr("fill", "#04ADBF")
+  .delay(100)
+  .duration(500)
   .attr("y", 0)
-.attr("height", 0);
+  .attr("height", 0)
+  .remove()
+;
+//if it is not removed, the new element will also be blue, meaning it is reused
+console.log('exitingElements',exitingElements);
 
-exitingElements.transition().delay(2000).remove();
 
 }
