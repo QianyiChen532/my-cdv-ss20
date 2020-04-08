@@ -1,0 +1,14 @@
+button{
+  width:300px;
+  height: 50px;
+}
+#usa{
+  background-color: blue;
+}
+#china{
+  background-color: red;
+}
+button{
+  color:white;
+  font-weight: bold;
+}
