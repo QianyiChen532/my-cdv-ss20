@@ -91,7 +91,7 @@ function axisDisplay(){
   xAxis = d3.axisBottom(xScale);
   xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;})//if doesn't have this line, will return datas in all names//怎么match到emoji？
 
-  xAxisGroup.call(xAxis);
+  xAxisGroup.transition().call(xAxis);
 
   //modify axis
   xAxisGroup.selectAll("text").attr("font-size", 24).attr("y", 9);
@@ -102,6 +102,10 @@ function axisDisplay(){
   yMax = d3.max(data, function(d){return d.value});
   yDomain = [0, yMax];
   yScale = d3.scaleLinear().domain(yDomain).range([0,h-padding*2])
+
+
+
+
 
 }
 
@@ -163,20 +167,19 @@ function updateAddExit(){
   elementsForPage.transition().duration(500).attr("transform", function(d, i){
     return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
   });
+
   //update axis
   allNames = data.map(function(d){console.log(d);return d.key});
   xScale.domain(allNames);
 
-  xAxis = d3.axisBottom(xScale);
-  xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;}); // we adjust this because it uses the new data
-  xAxisGroup.call(xAxis).selectAll("text").attr("font-size", 18); // we adjust this to bring the new axis onto the page
+  // xAxis = d3.axisBottom(xScale);
+  // xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;}); // we adjust this because it uses the new data
+  xAxisGroup.attr("font-size", 18); // we adjust this to bring the new axis onto the page
 
-  // y scale
+  // // y scale
   yMax = d3.max(data, function(d){return d.value});
   yDomain = [0, yMax+yMax*0.1];
   yScale.domain(yDomain);
-
-
   //update element
   elementsForPage.select("rect")
   .transition()
