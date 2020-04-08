@@ -75,8 +75,13 @@ document.getElementById("buttonF").addEventListener("click", surprise);
 
 axisDisplay();
 function axisDisplay(){
+  // function assignKeys(d){
+  //   return d.key;
+  // }
   //x scale band scale 柱状图的宽 的感觉？
-  let allNames = data.map(function(d){return d.key});
+  let allNames = data.map(  function assignKeys(d){
+      return d.key;
+    });
   // console.log(allNames);
 
   xScale = d3.scaleBand()
@@ -104,20 +109,20 @@ function axisDisplay(){
   // let yAxisGroup = viz.append("g").classed("yAxis", true);
   // yAxisGroup.call(yAxis);
 
-  //update axis
-  allNames = data.map(function(d){return d.key});
-  xScale.domain(allNames);
-
-  xAxis = d3.axisBottom(xScale);
-  xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;}); // we adjust this because it uses the new data
-  xAxisGroup.call(xAxis).selectAll("text").attr("font-size", 18); // we adjust this to bring the new axis onto the page
-
-  // y scale
-  yMax = d3.max(data, function(d){return d.value});
-  yDomain = [0, yMax+yMax*0.1];
-  yScale.domain(yDomain);
-
-  xAxisGroup.transition().delay(200).duration(1200).call(xAxis).selectAll("text").attr("font-size", 18);
+  // //update axis
+  // allNames = data.map(function(d){return d.key});
+  // xScale.domain(allNames);
+  //
+  // xAxis = d3.axisBottom(xScale);
+  // xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;}); // we adjust this because it uses the new data
+  // xAxisGroup.call(xAxis).selectAll("text").attr("font-size", 18); // we adjust this to bring the new axis onto the page
+  //
+  // // y scale
+  // yMax = d3.max(data, function(d){return d.value});
+  // yDomain = [0, yMax+yMax*0.1];
+  // yScale.domain(yDomain);
+  //
+  // xAxisGroup.transition().delay(200).duration(1200).call(xAxis).selectAll("text").attr("font-size", 18);
 }
 
 graphDisplay();
@@ -178,6 +183,20 @@ function updateAddExit(){
   elementsForPage.transition().duration(500).attr("transform", function(d, i){
     return "translate("+ xScale(d.key)+ "," + (h - padding) + ")"
   });
+  //update axis
+  allNames = data.map(assignKeys);
+  xScale.domain(allNames);
+
+  xAxis = d3.axisBottom(xScale);
+  xAxis.tickFormat(d=>{return data.filter(dd=>dd.key==d)[0].name;}); // we adjust this because it uses the new data
+  xAxisGroup.call(xAxis).selectAll("text").attr("font-size", 18); // we adjust this to bring the new axis onto the page
+
+  // y scale
+  yMax = d3.max(data, function(d){return d.value});
+  yDomain = [0, yMax+yMax*0.1];
+  yScale.domain(yDomain);
+
+  xAxisGroup.transition().delay(200).duration(1200).call(xAxis).selectAll("text").attr("font-size", 18);
 
   //update element
   elementsForPage.select("rect")
