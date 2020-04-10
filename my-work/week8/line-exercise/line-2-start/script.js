@@ -54,7 +54,7 @@ function gotData(incomingData){
 
 let lineMaker = d3.line()
   .x(function(d,i){
-    console.log(d);
+    // console.log(d);
     return xScale(d.year);
   })
   .y(function(d,i){
@@ -66,65 +66,47 @@ let lineMaker = d3.line()
 
 function vizData(){
   let filteredData = incomingData[countryIndex];
-console.log(filteredData);
-  // function filteredData(d){
-  //   console.log(d);
-  //
-  //   if (d[0].country == 'China'){
-  //     return d;
-  //   }
-  // }
-  // console.log(filteredData);
-  // console.log(incomingData);
+// console.log(filteredData);
 
-let datagroups = graphGroup.selectAll('.line').data(incomingData);
-let cn = datagroups.enter()
+let lines = graphGroup.selectAll('.line').data([filteredData]);
+
+lines.enter()
     .append('path')
+    .attr('class','line')
+    .attr('d',lineMaker)
+    .attr('fill','none')
+    .attr('stroke-width',5)
+    .attr('stroke',function(d,i){
+      // console.log(d);
+      if(d[0].country == 'United States'){
+        return 'red';
+      }else{
+        return 'blue';
+      }
+    })
+
+    lines
+    .transition()
+    .duration(1000)
+    .attr('d',lineMaker)
+    .attr('stroke',function(d,i){
+      // console.log(d);
+      if(d[0].country == 'United States'){
+        return 'red';
+      }else{
+        return 'blue';
+      }
+    })
+    ;
+
+
     // .filter(function(d){
     //   console.log(d);
     //   if (d[0].country == 'China'){
     //     return d;
     //   }
     // })
-    
-    .attr('d',lineMaker)
-    .attr('fill','none')
-    .attr('stroke-width',5)
-    .attr('stroke',function(d,i){
-      // console.log(d);
-      if(d.country == 'United States'){
-        return 'red';
-      }else{
-        return 'blue';
-      }
-    })
-    .transition()
-    .duration(10000)
-    .attr('storke','none')
-    ;
 
-console.log(cn);
-let exitingElements = datagroups.exit();
-console.log(exitingElements);
-exitingElements.remove();
-// let us = graphGroup.selectAll('.line').data(incomingData).enter()
-//
-//   us
-//   .append('g')
-//     .append('path')
-//     .filter(function(d){
-//       console.log(d);
-//       if (d[0].country == 'United States'){
-//         return d;
-//       }
-//     })
-//     .attr('d',lineMaker)
-//     .attr('fill','none')
-//     .attr('stroke-width',5)
-//     .attr('stroke','red')
-//
-//     .transition()
-//     ;
 
 
 }
@@ -133,10 +115,12 @@ exitingElements.remove();
 document.getElementById('usa').addEventListener('click',function(){
   countryIndex = 0;
   vizData();
+  console.log('usa');
 });
 document.getElementById('china').addEventListener('click',function(){
   countryIndex = 1;
   vizData();
+  console.log('cn');
 });
 
 }
