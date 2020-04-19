@@ -1,0 +1,20 @@
+body{
+  text-align: center;
+  margin-top:30px;
+}
+
+button{
+  /* display: flex; */
+  width:100px;
+  height: 50px;
+}
+
+#projection{
+  background-color: white;
+}
+
+
+#map-cn{
+  background-color: #00bcd485;
+
+}
