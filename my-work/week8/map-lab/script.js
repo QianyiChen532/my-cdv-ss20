@@ -111,14 +111,14 @@ d3.json("mainland.geojson").then(function(geoData){
       // ;
 
 
-      projection= d3.geoEqualEarth()
-      .translate([w/2, h/2])
-      .fitExtent([[padding, padding], [w-padding, h-padding]], mapData);
+      // projection= d3.geoEqualEarth()
+      // .translate([w/2, h/2])
+      // // .fitExtent([[padding, padding], [w-padding, h-padding]], mapData);
 
 
       let mapGroup = viz.append("g").attr("class", "mapGroup");
 
-      function updateMap(mapData){
+      function updateMap(mapData,i){
 
         if (mapData == countryData){
           mapIndex =0;
@@ -127,8 +127,17 @@ d3.json("mainland.geojson").then(function(geoData){
         }
 
 
+        if(i == undefined){
+          i=0;
+        }
+        console.log(i);
+        projection= projections[i].projection
+        .translate([w/2, h/2])
+        .fitExtent([[padding, padding], [w-padding, h-padding]], mapData);
+
         let pathMaker = d3.geoPath()
         .projection(projection);
+
 
 
         let map = mapGroup.selectAll('.countries').data(mapData.features)
@@ -173,15 +182,15 @@ d3.json("mainland.geojson").then(function(geoData){
         }else {
           mapData = geoData;
         }
-        mapData = countryData;
+        // mapData = countryData;
 
         let n = Math.floor(Math.random()*projections.length);
         console.log(projections[n].name);
 
-        projection = projections[n].projection
-        .translate([w/2, h/2])
-        .fitExtent([[padding, padding], [w-padding, h-padding]], mapData);
-        updateMap(mapData);
+        // projection = projections[n].projection
+        // .translate([w/2, h/2])
+        // .fitExtent([[padding, padding], [w-padding, h-padding]], mapData);
+        updateMap(mapData,n);
       }
 
       document.getElementById("projection").addEventListener("click", changeProjection);
