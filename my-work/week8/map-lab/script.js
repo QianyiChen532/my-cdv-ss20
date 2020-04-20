@@ -28,7 +28,7 @@ d3.json("mainland.geojson").then(function(geoData){
   d3.csv("china-pop-2018.csv").then(function(incomingData){
     d3.json("countries.geojson").then(function(countryData){
 
-      console.log(geoData);//latitude longitude
+      console.log(incomingData);//latitude longitude
 
       incomingData = incomingData.map(function(d,i){
         d.population = Number(d.population);
@@ -53,31 +53,12 @@ d3.json("mainland.geojson").then(function(geoData){
 
       console.log(colorScale(20));
 
-
-      // rect3d.append("rect")
-      // .attr('class','rect3d')
-      // .attr("x", function(d,i){
-      //   return d.properties.latitude;
-      // })
-      // .attr("y", function(d,i){
-      //   return d.properties.longitude;
-      // })
-      // .attr("width", rw)
-      // .attr("height", rh/2)
-      // .attr ("transform", "translate ("+(-rh/2)+","+(-rh/2)+") skewX("+ang+")")
-      // ;
-      //
-      // rect3d.append("rect")
-      //   .attr("class", "side")
-      //  .attr("x", 0)
-      // .attr("y", 0)
-      // .attr("width", rh/2)
-      // .attr("height", rh)
-      // .attr ("transform", "translate ("+(-rh/2)+","+(-rh/2)+") skewY("+ang+")")
-      // ;
-
       let textGroup = viz.append("g").attr("class", "textGroup");
       let mapGroup = viz.append("g").attr("class", "mapGroup");
+      let rect3dGroup = viz.append('g')
+      .attr('class','rect3dGroup')
+      .attr("transform", "translate (-5,-5)")
+      ;
 
 
       function updateMap(mapData,pIndex){
@@ -154,15 +135,39 @@ d3.json("mainland.geojson").then(function(geoData){
           return 'current projection:'+ projections[pIndex].name
         })
         ;
-        let svg = d3.select('svg');
 
-        let rect3dGroup = svg.append('g')
-        .attr('class','rect3dGroup')
-        // .attr("transform", "translate (50,50)")
-        ;
-        let rect3d  =rect3dGroup.selectAll('rect')
+        function colorChoice(d,i){
+          // console.log(d);
+          if(d.properties.iso_a2 == "CN"){
+            let correspondingDatapoint = incomingData.find(function(datapoint){
+              // console.log(datapoint);
+              if(datapoint.province == d.properties.name){
+                console.log(datapoint.province);
+                return true;
+              }else{
+
+                return false;
+              }
+            })
+            if(correspondingDatapoint != undefined){
+              console.log(correspondingDatapoint.population);
+            }
+            return colorScale(correspondingDatapoint.population);
+          }
+          else{
+            return 'none';
+          }
+        }
+
+
+        let rect3d  =rect3dGroup.selectAll('.rect3d')
         .data(mapData.features)
         ;
+
+                let top  =rect3dGroup.selectAll('.top')
+                .data(mapData.features)
+                ;
+                console.log(top);
 
         let rh = 20, rw = 20, ang=45;
         // console.log(rect3d);
@@ -185,59 +190,10 @@ d3.json("mainland.geojson").then(function(geoData){
         })
         .attr("width", rw)
         .attr("height", rh)
-        .attr("width", function(d,i){
-          // console.log(d);
-          if(d.properties.iso_a2 == "CN"){
-            // console.log('cn');
-            let correspondingDatapoint = incomingData.find(function(datapoint){
-              // console.log(datapoint);
-              if(datapoint.province == d.properties.name){
-                console.log(datapoint.province);
-                return true;
-              }else{
-
-                return false;
-              }
-            })
-
-            //
-            if(correspondingDatapoint != undefined){
-              console.log(correspondingDatapoint.population);
-              return sizeScale(correspondingDatapoint.population);
-            }
-
-          }
-          else{
-            return rh;
-          }
-        })
-        .attr("fill", function(d,i){
-          // console.log(d);
-          if(d.properties.iso_a2 == "CN"){
-            // console.log('cn');
-            let correspondingDatapoint = incomingData.find(function(datapoint){
-              // console.log(datapoint);
-              if(datapoint.province == d.properties.name){
-                console.log(datapoint.province);
-                return true;
-              }else{
-
-                return false;
-              }
-            })
-
-            //
-            if(correspondingDatapoint != undefined){
-              console.log(correspondingDatapoint.population);
-            }
-            return colorScale(correspondingDatapoint.population);
-          }
-          else{
-            return 'none';
-          }
-        })
+        .attr("fill", 'none')
         ;
 
+//update
         rect3d
         .attr("x", function(d,i){
           let lat = d.properties.latitude;
@@ -251,10 +207,126 @@ d3.json("mainland.geojson").then(function(geoData){
 
           return projection([lon, lat])[1];
         })
+        .attr("height", rh)
+        .attr("width", function(d,i){
+          console.log(d.properties.name);
+          if(d.properties.iso_a2 == "CN"){
+            let correspondingDatapoint = incomingData.find(function(datapoint){
+              // console.log(datapoint);
+              if(datapoint.province == d.properties.name){
+                console.log(datapoint.province);
+                return true;
+              }else{
+                return false;
+              }
+            })
+            if(correspondingDatapoint != undefined){
+              console.log(correspondingDatapoint.population);
+              return sizeScale(correspondingDatapoint.population);
+            }
+          }
+          else{
+            return rh;
+          }
+        })
+        .attr("fill", colorChoice)
         ;
+
+        // top
+        // .enter()
+        // .append("rect")
+        // .attr('class','top')
+        // .attr("x", function(d,i){
+        //   let lat = d.properties.latitude;
+        //   let lon = d.properties.longitude;
+        //   // console.log(projection([lon, lat]));
+        //   return projection([lon, lat])[0];
+        // })
+        // .attr("y", function(d,i){
+        //   let lat = d.properties.latitude;
+        //   let lon = d.properties.longitude;
+        //
+        //   return projection([lon, lat])[1];
+        // })
+        // .attr("width", rw)
+        // .attr("height", rh/2)
+        // .attr ("transform", "translate ("+(-rh/2)+","+(-rh/2)+") skewX("+ang+")")
+        // ;
+        //
+        // rect3d
+        // .enter()
+        // .append("rect")
+        //   .attr("class", "side")
+        //   .attr("x", function(d,i){
+        //     let lat = d.properties.latitude;
+        //     let lon = d.properties.longitude;
+        //     // console.log(projection([lon, lat]));
+        //     return projection([lon, lat])[0];
+        //   })
+        //   .attr("y", function(d,i){
+        //     let lat = d.properties.latitude;
+        //     let lon = d.properties.longitude;
+        //
+        //     return projection([lon, lat])[1];
+        //   })
+        //   .attr('fill','red')
+        // .attr("width", rh/2)
+        // .attr("height", rh)
+        // .attr ("transform", "translate ("+(-rh/2)+","+(-rh/2)+") skewY("+ang+")")
+        // ;
+
+        // top
+        // .attr("x", function(d,i){
+        //   let lat = d.properties.latitude;
+        //   let lon = d.properties.longitude;
+        //   // console.log(projection([lon, lat]));
+        //   return projection([lon, lat])[0];
+        // })
+        // .attr("y", function(d,i){
+        //   let lat = d.properties.latitude;
+        //   let lon = d.properties.longitude;
+        //
+        //   return projection([lon, lat])[1];
+        // })
+        // .attr('fill','red')
+        // .attr("width", rw)
+        // .attr("height", rh/2)
+        // .attr ("transform", "translate ("+(-rh/2)+","+(-rh/2)+") skewX("+ang+")")
+        // ;
+        //
+        // rect3d
+        // .append("rect")
+        //   .attr("class", "side")
+        //   .attr("x", function(d,i){
+        //     let lat = d.properties.latitude;
+        //     let lon = d.properties.longitude;
+        //     // console.log(projection([lon, lat]));
+        //     return projection([lon, lat])[0];
+        //   })
+        //   .attr("y", function(d,i){
+        //     let lat = d.properties.latitude;
+        //     let lon = d.properties.longitude;
+        //
+        //     return projection([lon, lat])[1];
+        //   })
+        //   .attr('fill','red')
+        // .attr("width", rh/2)
+        // .attr("height", rh)
+        // .attr('fill','red')
+        // .attr ("transform", "translate ("+(-rh/2)+","+(-rh/2)+") skewY("+ang+")")
+        // ;
 
         rect3d
         .exit()
+        .transition()
+        .duration(500)
+        .remove()
+        ;
+
+        top
+        .exit()
+        .transition()
+        .duration(500)
         .remove()
         ;
 
