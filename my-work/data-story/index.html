@@ -1,26 +1,54 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <style media="screen">
-        body{
-          margin: 0;
-          background-color: white;
-        }
-        h2{
-          color: blue;
-          font-family: sans-serif;
-          font-weight: bold;
-          font-size: 40px;
-          text-align:center;
-        }
-    </style>
-  </head>
-  <body>
-  <div class="viz">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Happiness</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <!-- include library -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/bfiessinger/scrollToSmooth@latest/dist/scrolltosmooth.min.js"></script>
+
+</head>
+
+<body>
+  <div class="intro">
+    <div class="intro-overlay">
+
+    </div>
+    <div class="intro-text">
+      <h1 class='title'>Happy 100,000 Times :)</h1>
+      <h3>A visualization & exploration of happy moments</h3>
+      <h3 class="">By Daisy Chen</h3>
+    </div>
+  </div>
+
+  <div class="text1">
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+  </div>
+<div class="button">
+  <div class="button-container">
+      <button type="button" name="button">Start Exploration</button>
+  </div>
+
+</div>
+  <div class="credit">
+<p class='notes'>
+  Image: Hybrid on Unsplash
+</p>
+<p class='notes'> Dataset: The HappyDB corpus comes from Akari Asai, Sara Evensen, Behzad Golshan, Alon Halevy, Vivian Li, Andrei Lopatenko, Daniela Stepanov, Yoshihiko Suhara, Wang-Chiew Tan, Yinzhan Xu. More details can be found on <a href="https://github.com/megagonlabs/HappyDB">Github</a> and <a href="https://rit-public.github.io/HappyDB/">this site</a>.
+</p>
+
+  </div>
+  <div id="container">
+
 
   </div>
 
-  </body>
+  <!-- our main script: -->
+  <script type="text/javascript" src="js/script.js"></script>
+</body>
 </html>
