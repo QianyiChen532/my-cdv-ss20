@@ -1,10 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&family=Caveat:wght@400;700&family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
-
-
-/* @import url('https://fonts.googleapis.com/css2?family=Crimson+Text&family=Lato:wght@300;400&family=Playfair+Display:wght@500&display=swap'); */
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Caveat+Brush&family=Caveat:wght@400;700&family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
 
 
 /* handwriting:Caveat
@@ -111,6 +106,8 @@ background: none;
   padding-bottom: 30px;
   padding-top: 30px;
 }
+
+/* for main page */
 
 .notes{
   font-size: 15px;
