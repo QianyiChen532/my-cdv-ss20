@@ -72,7 +72,6 @@ d3.csv("merged.csv").then(function(incomingData){
   .on('brush end',brushed)
   ;
 
-//zoom
   let zoom = d3.zoom()
   .scaleExtent([1, Infinity])
   .translateExtent([[0, 0], [w, h]])
@@ -85,19 +84,18 @@ d3.csv("merged.csv").then(function(incomingData){
     .attr("width", width)
     .attr("height", height);
 
-  let zoomRect = svg.append("rect")
+    svg.append("rect")
        .attr("class", "zoom")
        .attr("width", width)
        .attr("height", height)
        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
        .call(zoom);
 
-       let chart = focus.selectAll(".area").data(incomingData)
+  let chart = focus.selectAll(".area").data(incomingData)
 
-     let chartEnter = chart.enter();
-     let chartExit = chart.exit();
+  let chartEnter = chart.enter();
+  let chartExit = chart.exit();
 
-//append circles
   chartEnter
   .append("circle")
   .attr('cx',function(d,i){
@@ -106,7 +104,8 @@ d3.csv("merged.csv").then(function(incomingData){
   .attr('cy',function(d,i){
     return y(category_index[d.predicted_category])
   })
-  .attr('r',2)
+  .attr('r',1)
+  .attr('fill','red')
   .attr("class", "area")
   ;
 
@@ -143,7 +142,7 @@ d3.csv("merged.csv").then(function(incomingData){
 
   function updateChart(){
 
-    chart
+    focus.selectAll(".area").data(incomingData)
     .attr('cx',function(d,i){
       return x(d.age)
     })
@@ -178,7 +177,7 @@ d3.csv("merged.csv").then(function(incomingData){
 //need to do something with xscale here
     let simulation = d3.forceSimulation(incomingData)
     .force('forceX', d3.forceX().x(function(d,i){
-      return x(d.age)
+      return x2(d.age)
     }))
     .force('forceY', d3.forceY().y(function(d){
       return y(category_index[d.predicted_category])
@@ -225,7 +224,7 @@ d3.csv("merged.csv").then(function(incomingData){
       focus.select(".axis--x").call(xAxis);
       context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
       updateChart();
-      restartForce()
+
     }
 
   })
