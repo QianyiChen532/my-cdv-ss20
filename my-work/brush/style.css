@@ -1,6 +1,11 @@
-body{
-  margin:0;
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #f7f1e9;
 }
+
 
 .area {
   fill: steelblue;
@@ -11,4 +16,115 @@ body{
   cursor: move;
   fill: none;
   pointer-events: all;
+}
+
+.unselected{
+  opacity: 0.5;
+}
+
+.selected{
+  opacity: 1;
+}
+
+.area circle:hover{
+  stroke:black;
+}
+
+.filters{
+  padding: 20px;
+}
+
+.filter-label{
+      padding-bottom: 10px
+}
+
+#visualization{
+  display: grid;
+  height: calc(100vh);
+  width: calc(100vw - 60px);
+  grid-template-columns: 2.5fr 1fr;
+  grid-template-rows: repeat(6,1fr);
+  grid-gap: 5px;
+grid-auto-rows: minmax(100px, auto);
+
+}
+
+#demofilters{
+    display: grid;
+    grid-column: 2
+    grid-row:1/3;
+    text-transform: uppercase;
+}
+
+
+.svg-container {
+  grid-column: 1/2;
+grid-row: 1/10;
+  width: 1300px;
+  overflow: hidden;
+   display: inline-block;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+}
+
+/* On mouse-over*/
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* draw check */
+.container .checkmark:after {
+  left: 8px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 1px 1px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

@@ -178,25 +178,23 @@ font-family: 'Lato', sans-serif;
 }
 
 #category{
-width: 25%
-  float: left;
+width: 80%
+  /* float: left; */
 }
 
+/* .datapoint circle:hover{
+  opacity: 0;
+} */
+
 .svg-container {
-  /* padding-left: 10px; */
+
   display: inline-block;
   position: relative;
     float: left;
   width: 70%;
-  padding-bottom: 80%; /* aspect ratio */
+  padding-bottom: 80%;
   vertical-align: top;
   overflow: hidden;
 
       border-right: 1px solid #ccc;
-}
-.svg-content-responsive {
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: 0;
 }

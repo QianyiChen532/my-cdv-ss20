@@ -1,0 +1,54 @@
+body{
+  margin:0;
+}
+
+#area {
+  fill: steelblue;
+  clip-path: url(#clip);
+}
+
+.zoom {
+  /* cursor: move; */
+  fill: none;
+  pointer-events: all;
+}
+
+.unselected{
+  opacity: 0.5;
+}
+
+.selected{
+  opacity: 1;
+}
+
+.area circle:hover{
+  stroke:black;
+}
+
+/* .svg-container{
+  vertical-align: center;
+} */
+
+#visualization{
+  display: grid; */
+  grid-template-columns: repeat(2, 1fr);
+grid-gap: 10px;
+grid-auto-rows: minmax(100px, auto);
+}
+
+/* .svg-container {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* aspect ratio */
+  vertical-align: top;
+  overflow: hidden;
+}
+.svg-container {
+  width: 1300px;
+
+   display: inline-block;
+  /* position: absolute;
+  top: 10px;
+  left: 0;  */
+}

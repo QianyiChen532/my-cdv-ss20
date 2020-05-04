@@ -1,6 +1,7 @@
-let w = 1500;
+let w = 1300;
 let h = 800;
-let padding = 90;
+let paddingX = 90;
+let paddingY = 80;
 let category_index = {
   'exercise':0,
   'bonding':1,
@@ -11,31 +12,24 @@ let category_index = {
   'enjoy_the_moment':6
 }
 
-// let svg = d3.select("#visualization")
-//     .append("svg")
-//   .style("background-color", "lavender")
-//   .attr("width", w)
-//   .attr("height", h)
-// ;
-
-let viz = d3.select("#visualization")
+let viz = d3.select(".svg-container")
 .append("svg")
 .attr("width", w)
 .attr("height", h)
 .append("g")
 
 let svg=d3.select('svg');
-let margin = {top: 20, right: 20, bottom: 110, left: 20},
-margin2 = {top: h*0.8, right: 20, bottom: 30, left: 20},
+let margin = {top: 20, right: paddingX, bottom: 110, left: paddingX},
+margin2 = {top: h*0.8, right: paddingX, bottom: 30, left: paddingX},
 width = +svg.attr("width")- margin.left - margin.right,
 height = +svg.attr("height") - margin.top - margin.bottom,
 height2 = +svg.attr("height") - margin2.top - margin2.bottom;
 
 // initialise scales
-let x = d3.scaleLinear().range([padding, width-padding]);
-let x2 = d3.scaleLinear().range([padding, width-padding]);
-let y2 = d3.scaleLinear().range([height2-padding,padding]);
-let y = d3.scaleLinear().range([height-padding,padding]);
+let x = d3.scaleLinear().range([0, width]);
+let x2 = d3.scaleLinear().range([0, width]);
+let y2 = d3.scaleLinear().range([height2-paddingY,paddingY]);
+let y = d3.scaleLinear().range([height-paddingY,paddingY]);
 
 let xAxis = d3.axisBottom(x);
 let xAxis2 = d3.axisBottom(x2);
@@ -44,37 +38,56 @@ let yAxis = d3.axisLeft(y);
 let focus = svg.append("g")
 .attr("class", "focus")
 .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-.attr('width',width)
-.attr('height',height);;
+// .attr('width',width-paddingX*2)
+// .attr('height',height)
+;
+
 
 let context = svg.append("g")
 .attr("class", "context")
 .attr("transform", "translate(" + margin2.left + "," + margin2.top + ")")
-.attr('width',width)
-.attr('height',height2);
+// .attr('width',width)
+// .attr('height',height2)
+.attr('fill','green')
+;
 
 
 //load data
 d3.csv("merged.csv").then(function(incomingData){
   console.log(incomingData);
 
-  incomingData = incomingData.slice(0,1000);
-  x.domain(d3.extent(incomingData, function(d) { return d.age; }));
+  //process datapoint
+  incomingData = incomingData.filter(function(d,i){
+      if(d.modified == 'TRUE'){
+        return true;
+      }else{
+        return false;
+      }
+    })
+
+  incomingData = incomingData.slice(0,2000);
+  let maxAge = d3.max(incomingData, function(d) {
+     return d.age; })
+  x.domain([13,maxAge-5]);
   y.domain([0, 6]);
   x2.domain(x.domain());
   y2.domain(y.domain());
 
-  let rScale = d3.scaleLinear().domain([1,69]).range([1,8]);
+  let maxNumofSentence = d3.max(incomingData, function(d) {
+     return d.num_sentence; })
+
+  let rScale = d3.scaleLinear().domain([1,maxNumofSentence]).range([3,12]);
 
   //init brush
+  let paddingBrush = 80;
   let brush = d3.brushX()
-  .extent([[0,100],[width, height2+100]])
+  .extent([[0,paddingBrush],[width, height2+paddingBrush]])
   .on('brush end',brushed)
   ;
 
 //zoom
   let zoom = d3.zoom()
-  .scaleExtent([1, Infinity])
+  .scaleExtent([1, 8])
   .translateExtent([[0, 0], [w, h]])
   .extent([[0, 0], [w, h]])
   .on("zoom", zoomed);
@@ -87,18 +100,67 @@ d3.csv("merged.csv").then(function(incomingData){
 
   let zoomRect = svg.append("rect")
        .attr("class", "zoom")
-       .attr("width", width)
+       .attr("width", width-paddingX*2)
        .attr("height", height)
-       .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+       .attr("transform", "translate("+margin.left+',' + margin.top + ")")
        .call(zoom);
 
-       let chart = focus.selectAll(".area").data(incomingData)
+  let chart = focus.selectAll(".area").data(incomingData)
+  let chartEnter = chart.enter();
+  let chartExit = chart.exit();
 
-     let chartEnter = chart.enter();
-     let chartExit = chart.exit();
+  //tooltip
+
+  let tooltip = d3.select(".svg-container")
+ .append("div")
+ .style("opacity", 0)
+ .attr('width','100px')
+ .attr("class", "tooltip")
+ .style("background-color", "white")
+ .style("border", "solid")
+ .style("border-width", "1px")
+ .style("border-radius", "5px")
+ .style("padding", "5px")
+ .style('z-index','2')
+
+//mouse interaction
+function mouseover(d){
+console.log(d.cleaned_hm);
+chart
+  .attr('opacity',0.1)
+
+d3.select(this)
+ .style("stroke", "black")
+ .style("opacity", 1)
+
+ ;
+}
+
+function mousemove(d){
+tooltip
+.style("opacity", 1)
+.html("The happy moment is:<br> " + d.cleaned_hm)
+.style("left", (d3.mouse(this)[0]) + "px")
+.style("top", (d3.mouse(this)[1]) + "px")
+
+}
+
+function mouseleave(d) {
+  tooltip
+    .style("opacity", 0)
+
+   // d3.select(this)
+   //  .style("stroke", "none")
+   //  .style("opacity", 1)
+
+    viz.selectAll(".datapoint").data(fullData)
+    .attr('opacity',1)
+    ;
+}
+
 
 //append circles
-  chartEnter
+  let datagroup = chartEnter
   .append("circle")
   .attr('cx',function(d,i){
     return x(d.age)
@@ -106,8 +168,18 @@ d3.csv("merged.csv").then(function(incomingData){
   .attr('cy',function(d,i){
     return y(category_index[d.predicted_category])
   })
-  .attr('r',2)
+  .attr('r',3)
   .attr("class", "area")
+  .on('mouseover',function(d){
+  console.log('mouseover');
+  datagroup
+  .attr('opacity',0.1)
+  d3.select(this)
+  .attr('opacity',1)
+})
+  .on('mouseover',mouseover)
+  .on('mousemove',mousemove)
+  .on('mouseleave',mouseleave)
   ;
 
   focus.append("g")
@@ -135,30 +207,17 @@ d3.csv("merged.csv").then(function(incomingData){
   .attr("transform", "translate(0," + height2 + ")")
   .call(xAxis2);
 
-
   context.append("g")
   .attr("class", "brush")
   .call(brush)
   .call(brush.move, x.range());
 
-  function updateChart(){
+  incomingData = incomingData.map(function(datapoint){
+    datapoint.x = x(datapoint.age);
+    datapoint.y = h/2;
 
-    chart
-    .attr('cx',function(d,i){
-      return x(d.age)
-    })
-    .attr('cy',function(d,i){
-      return y(category_index[d.predicted_category])
-    })
-    ;
-  }//when not using force
-
-  // incomingData = incomingData.map(function(datapoint){
-  //   datapoint.x = x(datapoint.age);
-  //   datapoint.y = h/2;
-  //
-  //   return datapoint;
-  // })
+    return datapoint;
+  })
 
   // let simulation = d3.forceSimulation(incomingData)
   // .force('forceX', d3.forceX().x(function(d,i){
@@ -171,8 +230,21 @@ d3.csv("merged.csv").then(function(incomingData){
   //   return rScale(d.num_sentence)+1;
   // }))
   // .on('tick',simulationRan)
+  // .tick(10)
   // ;
 
+  //when not using force
+  function updateChart(){
+
+    chart
+    .attr('cx',function(d,i){
+      return x(d.age)
+    })
+    .attr('cy',function(d,i){
+      return y(category_index[d.predicted_category])
+    })
+    ;
+  }
 
   function restartForce(){
 //need to do something with xscale here
@@ -187,14 +259,13 @@ d3.csv("merged.csv").then(function(incomingData){
       return rScale(d.num_sentence)+1;
     }))
     .on('tick',simulationRan)
+    .tick(10)
     ;
   }
 
-
   function simulationRan(){
-    focus.selectAll(".area")
+    focus.selectAll("circle")
     .attr("cx", function(d){
-
       return d.x;
     })
     .attr("cy", function(d){
@@ -210,22 +281,39 @@ d3.csv("merged.csv").then(function(incomingData){
     if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
     let s = d3.event.selection || x2.range();
     x.domain(s.map(x2.invert, x2));
-    focus.select(".axis--x").call(xAxis);
-    svg.select(".zoom").call(zoom.transform, d3.zoomIdentity
+    focus.select(".axis--x").call(xAxis.tickFormat(d3.format(".0f")));
+    svg.select(".zoom")
+      .call(zoom.transform, d3.zoomIdentity
       .scale(width / (s[1] - s[0]))
       .translate(-s[0], 0));
-      updateChart();
-      restartForce()
+      restartForce();
     }
 
     function zoomed() {
       if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+
       let t = d3.event.transform;
       x.domain(t.rescaleX(x2).domain());
       focus.select(".axis--x").call(xAxis);
       context.select(".brush").call(brush.move, x.range().map(t.invertX, t));
-      updateChart();
       restartForce()
     }
+
+//update with checkbox
+   function update(){
+
+     // For each check box:
+     d3.selectAll(".checkbox").each(function(d){
+       let cb = d3.select(this);
+       console.log(cb);
+
+       let grp = cb.property("value")
+       console.log(grp);
+       console.log(cb.property("checked"));
+       //how to access the text/label
+ })
+}
+
+   d3.selectAll(".checkbox").on("change",update);
 
   })
