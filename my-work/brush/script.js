@@ -18,23 +18,7 @@ let viz = d3.select(".svg-container")
 .attr("height", h)
 .append("g")
 
-// let labels = [
-//   ['c':'exercise',
-//   n:0],
-//   ['c':'bonding',
-//   n:1],
-//   ['c':'nature',
-//   n:2],
-//   ['c':'leisure',
-//   n:3],
-//   ['c':'achievement',
-//   n:4],
-//   ['c':'affection',
-//   n:5],
-//   ['c':'enjoy_the_moment',
-//   n:6]
-// ];
-//  bonding','nature','leisure','achievement','affection',  'enjoy_the_moment'];
+let labels = ['exercise','bonding','nature','leisure','achievement','affection',  'moment'];
 
 let svg=d3.select('svg');
 let margin = {top: 20, right: paddingX, bottom: 110, left: paddingX},
@@ -47,7 +31,7 @@ height2 = +svg.attr("height") - margin2.top - margin2.bottom;
 let x = d3.scaleLinear().range([0, width]);
 let x2 = d3.scaleLinear().range([0, width]);
 let y2 = d3.scaleLinear().range([height2-paddingY,paddingY]);
-let y = d3.scaleLinear().range([height-paddingY,paddingY]);
+let y = d3.scaleLinear().domain([0,6]).range([height-paddingY,paddingY]);
 //let y = d3.scaleBand().range([height-paddingY,paddingY]);
 
 let xAxis = d3.axisBottom(x);
@@ -83,6 +67,18 @@ let context = svg.append("g")
 
 
 
+let labelGroup = focus.append("g").attr("class", "labelGroup");
+for(let i=0;i<7;i++){
+  labelGroup
+  .attr('transform','translate('+width+','+'0)')
+  .append('text')
+  .text(labels[i])
+  .attr('x','-30')
+  .attr('y',y(i))
+  .attr('stroke','black')
+;
+}
+
 
 //load data
 d3.csv("merged.csv").then(function(incomingData){
@@ -105,19 +101,8 @@ d3.csv("merged.csv").then(function(incomingData){
   // y.domain(  ['exercise','bonding','nature','leisure','achievement','affection',  'enjoy_the_moment']);
   x2.domain(x.domain());
   y2.domain(y.domain());
-  // 
-  // let labelGroup = focus.append("g").attr("class", "labelGroup");
   //
-  //     labelGroup.data(labels).enter()
-  //     // .attr('transform','translate('+width+','+'0)')
-  // 		.append('text')
-  //     .text(function(d){
-  //       console.log(d.getIndex());
-  //     })
-  //     .attr('x','0')
-  //     .attr('y',y(1))
-  // 		.attr('stroke','black')
-  // ;
+
 
   let maxNumofSentence = d3.max(incomingData, function(d) {
      return d.num_sentence; })
