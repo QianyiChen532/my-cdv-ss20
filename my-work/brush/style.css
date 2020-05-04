@@ -128,3 +128,15 @@ grid-row: 1/10;
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.axis line {
+  stroke: lightgrey;
+  stroke-opacity: 0.6;
+  shape-rendering: crispEdges
+}
+
+.axis--y path {
+  stroke: lightgrey;
+  stroke-opacity: 0;
+  shape-rendering: crispEdges
+}

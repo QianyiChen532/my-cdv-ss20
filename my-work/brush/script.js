@@ -18,6 +18,24 @@ let viz = d3.select(".svg-container")
 .attr("height", h)
 .append("g")
 
+// let labels = [
+//   ['c':'exercise',
+//   n:0],
+//   ['c':'bonding',
+//   n:1],
+//   ['c':'nature',
+//   n:2],
+//   ['c':'leisure',
+//   n:3],
+//   ['c':'achievement',
+//   n:4],
+//   ['c':'affection',
+//   n:5],
+//   ['c':'enjoy_the_moment',
+//   n:6]
+// ];
+//  bonding','nature','leisure','achievement','affection',  'enjoy_the_moment'];
+
 let svg=d3.select('svg');
 let margin = {top: 20, right: paddingX, bottom: 110, left: paddingX},
 margin2 = {top: h*0.8, right: paddingX, bottom: 30, left: paddingX},
@@ -30,10 +48,22 @@ let x = d3.scaleLinear().range([0, width]);
 let x2 = d3.scaleLinear().range([0, width]);
 let y2 = d3.scaleLinear().range([height2-paddingY,paddingY]);
 let y = d3.scaleLinear().range([height-paddingY,paddingY]);
+//let y = d3.scaleBand().range([height-paddingY,paddingY]);
 
 let xAxis = d3.axisBottom(x);
 let xAxis2 = d3.axisBottom(x2);
 let yAxis = d3.axisLeft(y);
+
+//styling grid
+function make_x_gridlines() {
+  return d3.axisBottom(x)
+    .ticks(7)
+}
+
+function make_y_gridlines() {
+  return d3.axisRight(y)
+    .ticks(7)
+}
 
 let focus = svg.append("g")
 .attr("class", "focus")
@@ -50,6 +80,8 @@ let context = svg.append("g")
 // .attr('height',height2)
 .attr('fill','green')
 ;
+
+
 
 
 //load data
@@ -69,9 +101,23 @@ d3.csv("merged.csv").then(function(incomingData){
   let maxAge = d3.max(incomingData, function(d) {
      return d.age; })
   x.domain([13,maxAge-5]);
-  y.domain([0, 6]);
+  y.domain([0,6]);
+  // y.domain(  ['exercise','bonding','nature','leisure','achievement','affection',  'enjoy_the_moment']);
   x2.domain(x.domain());
   y2.domain(y.domain());
+  // 
+  // let labelGroup = focus.append("g").attr("class", "labelGroup");
+  //
+  //     labelGroup.data(labels).enter()
+  //     // .attr('transform','translate('+width+','+'0)')
+  // 		.append('text')
+  //     .text(function(d){
+  //       console.log(d.getIndex());
+  //     })
+  //     .attr('x','0')
+  //     .attr('y',y(1))
+  // 		.attr('stroke','black')
+  // ;
 
   let maxNumofSentence = d3.max(incomingData, function(d) {
      return d.num_sentence; })
@@ -182,10 +228,29 @@ function mouseleave(d) {
   .on('mouseleave',mouseleave)
   ;
 
-  focus.append("g")
-  .attr("class", "axis axis--x")
-  .attr("transform", "translate(0," + height + ")")
-  .call(xAxis);
+  // focus.append("g")
+  // .attr("class", "axis axis--x")
+  // .attr("transform", "translate(0," + height + ")")
+  // .call(xAxis);
+
+let xAxisGroup = focus.append("g").attr("class", "axis axis--x");
+  xAxisGroup
+     // .attr("transform","translate(0," + height + ")")
+     .style("stroke-dasharray",("3,3"))
+     .call(make_x_gridlines()
+           .tickSize(-height)
+           .tickFormat("")
+        )
+
+  let yAxisGroup = focus.append("g").attr("class", "axis axis--y");
+    yAxisGroup
+    .attr('transform','translate('+width+','+'0)')
+		.attr("class","axis axis--y")
+		.style("stroke-dasharray",("3,3"))
+		.call(make_y_gridlines()
+          .tickSize(-width)
+          .tickFormat("")
+       )
 
   //circles on the brush filter
   // context.selectAll(".area2").data(incomingData).enter()
@@ -299,13 +364,20 @@ function mouseleave(d) {
       restartForce()
     }
 
+    //filters
+    function filterData(){
+
+    }
+
 //update with checkbox
    function update(){
+
 
      // For each check box:
      d3.selectAll(".checkbox").each(function(d){
        let cb = d3.select(this);
        console.log(cb);
+       console.log(this);
 
        let grp = cb.property("value")
        console.log(grp);
@@ -315,5 +387,7 @@ function mouseleave(d) {
 }
 
    d3.selectAll(".checkbox").on("change",update);
+
+
 
   })

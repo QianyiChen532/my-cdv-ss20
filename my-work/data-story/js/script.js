@@ -102,20 +102,20 @@ d3.csv("../data/short-msg.csv").then(function(msgData){
       return rScale(d.num_sentence);
     })
     .on('mouseover',mouseover)
-    .on('mousemove',mousemove)
-    .on('mouseleave',mouseleave)
+    .on('mouseout',mouseleave)
 
   ;
   function mouseover(d){
   console.log(d.cleaned_hm);
+  //set all the points to grey
     viz.selectAll(".datapoint").data(fullData)
     .attr('opacity',0.1)
 
-   //  tooltip
-   // .style("opacity", 1)
-   // .html("The happy moment is:<br> " + d.cleaned_hm)
-   // .style("left", (d3.mouse(this)[0]) + "px")
-   // .style("top", (d3.mouse(this)[1]) + "px")
+    tooltip
+   .style("opacity", 1)
+   .html("The happy moment is:<br> " + d.cleaned_hm)
+   .style("left", (d3.mouse(this)[0]) + "px")
+   .style("top", (d3.mouse(this)[1]) + "px")
 
    d3.select(this)
    .style("stroke", "black")
@@ -124,14 +124,6 @@ d3.csv("../data/short-msg.csv").then(function(msgData){
    ;
   }
 
-  function mousemove(d){
-tooltip
-.style("opacity", 1)
-.html("The happy moment is:<br> " + d.cleaned_hm)
-.style("left", (d3.mouse(this)[0]) + "px")
-.style("top", (d3.mouse(this)[1]) + "px")
-
-  }
 
   function mouseleave(d) {
     tooltip
@@ -184,7 +176,47 @@ tooltip
 ;
 }
 
+document.getElementById('female').addEventListener('click',function(){updateChart(2)}
+);
+document.getElementById('male').addEventListener('click',function(){
+  updateChart(1);
+});
 
+
+
+function updateChart(num){
+console.log(num);
+  if(num==1){
+    viz.selectAll(".datapoint").data(fullData)
+    .attr('opacity',function(d){
+      if(d.gender == 'm'){
+        return '1';
+
+      }else{
+        return '0.1';
+      }
+  })
+}
+  if(num==2){
+    viz.selectAll(".datapoint").data(fullData)
+    .attr('opacity',function(d){
+      if(d.gender == 'f'){
+        return '1';
+
+      }else{
+        return '0.1';
+      }
+  })
+}
+
+
+  // viz.selectAll(".datapoint").data(fullData)
+  // .attr('opacity',function(d){
+  //   if (d.age>30){
+  //     return 1;
+  //   }
+  // })
+}
 
   })
   })
