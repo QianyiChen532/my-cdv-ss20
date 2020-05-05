@@ -176,11 +176,14 @@ d3.csv("../data/short-msg.csv").then(function(msgData){
 ;
 }
 
-document.getElementById('female').addEventListener('click',function(){updateChart(2)}
-);
+
 document.getElementById('male').addEventListener('click',function(){
   updateChart(1);
 });
+document.getElementById('female').addEventListener('click',function(){updateChart(2)}
+);
+document.getElementById('parent').addEventListener('click',function(){updateChart(3)}
+);
 
 
 
