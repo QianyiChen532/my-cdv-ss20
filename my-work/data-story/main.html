@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Happiness chart</title>
-  <link rel="stylesheet" href="css/style1.css">
+  <link rel="stylesheet" href="css/style-main.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- include library -->
@@ -14,36 +14,116 @@
 
 <body>
 
-  <div class="viz">
+    <div id="visualization">
+      <div class="svg-container">
 
-    <!-- <div class="slider">
-      <p>slider</p>
-    </div> -->
-    <div id="category" class = 'svg-container'>
-
-    </div>
-    <div class="">
-      <button id='male' type="button" name="button">male</button>
-    </div>
-    <div class="">
-      <button id='female' type="button" name="button">female</button>
-    </div>
-    <div class="">
-      <button id='parent' type="button" name="button">parenthood</button>
-    </div>
-    <!-- <div class="message">
-      <div class="">
-          <p>message</p>
       </div>
+      <!-- <div class="tooltip">
 
-      <div class="note">
-        <p id = 'note'>"I had a great meeting yesterday at work with my boss and a few colleagues and we went out for lunch afterward; everybody was excited by the projects we're working on and how efficient our team is.,I had a great meeting yesterday at work with my boss and a few colleagues and we went out for lunch afterward;"</p>
-      </div>
-      <div class="info">
-        <p>info</p>
       </div> -->
-    </div>
 
+      <div class="info">
+        message
+      </div>
+      <div class="filters" id='demofilters'>
+        <div class="filter-label">
+          Filter by <strong>demographic information</strong>
+        </div>
+        <div class="filter-demo-options">
+          <div class="option-selected">
+
+            <label class="container">single
+              <input type="checkbox" checked="checked" class='checkbox' name='single'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">married
+              <input type="checkbox" checked="checked" class='checkbox' name='married'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">Male
+              <input type="checkbox" checked="checked" class='checkbox' name='male'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">female
+              <input type="checkbox" checked="checked"  class='checkbox' name='female'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="filters" id='subjectfilters'>
+        <div class="filter-label">
+          Filter by <strong>subject</strong>
+        </div>
+        <div class="filter-demo-options">
+          <div class="option-selected" >
+
+            <label class="container">'I/We'
+              <input type="checkbox" name='iwe' checked="checked"  class='checkbox' id='iwe'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">'Daughter/son'
+              <input type="checkbox" checked="checked" class='checkbox'name='daughterson'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">'husband/wife'
+              <input type="checkbox" checked="checked" class='checkbox' name='husbandwife'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">'boyfriend/girlfriend'
+              <input type="checkbox" checked="checked" class='checkbox' name='bfgf'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">'dog/cat'
+              <input type="checkbox" name='dogcat' checked="checked" class='checkbox'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">'boss/team'
+              <input type="checkbox" name='bossteam' checked="checked" class='checkbox'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <div class="option-selected">
+
+            <label class="container">'someone'
+              <input type="checkbox" name='someone' checked="checked" class='checkbox'>
+              <span class="checkmark"></span>
+            </label>
+          </div>
+          <!-- <div class="select-all disabled">
+            Select All
+          </div> -->
+        </div>
+      </div>
+
+
+    </div>
 
 
 

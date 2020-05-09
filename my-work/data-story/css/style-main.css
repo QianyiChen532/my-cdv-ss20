@@ -1,0 +1,172 @@
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #f7f1e9;
+}
+
+/* chart */
+.area {
+  /* fill: steelblue; */
+  clip-path: url(#clip);
+}
+
+.unselected{
+  opacity: 0.1;
+}
+
+.selected{
+  opacity: 1;
+}
+
+.zoom {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+.area circle:hover{
+  stroke:black;
+}
+
+.filters{
+  padding: 20px;
+}
+
+.filter-label{
+      padding-bottom: 10px
+}
+
+/* container for all */
+#visualization{
+  display: grid;
+  height: calc(100vh);
+  width: calc(100vw - 60px);
+  grid-template-columns: 2.5fr 1fr;
+  grid-template-rows: repeat(6,1fr);
+  grid-gap: 5px;
+/* grid-auto-rows: minmax(100px, auto); */
+
+}
+
+#demofilters{
+    display: grid;
+    grid-column: 2
+    grid-row:1/3;
+    text-transform: uppercase;
+}
+
+.info{
+  padding: 20px;
+    grid-column: 2;
+    grid-row: 1/3;
+    height: calc(60vh);
+}
+
+.tooltip{
+  position: absolute;
+  width: 200px;
+
+  background-color:#ffffff9c;
+  /* border:solid; */
+  position,:absolute;
+  /* border-width:1px; */
+  border-radius:5px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+  padding:5px;
+  z-index:2;
+
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+.svg-container {
+  grid-column: 1/2;
+grid-row: 1/10;
+  width: 1300px;
+  overflow: hidden;
+   display: inline-block;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #eee;
+}
+
+/* On mouse-over*/
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* draw check */
+.container .checkmark:after {
+  left: 8px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 1px 1px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.axis line {
+  stroke: lightgrey;
+  stroke-opacity: 0.6;
+  shape-rendering: crispEdges
+}
+
+.axis--y path {
+  stroke: lightgrey;
+  stroke-opacity: 0;
+  shape-rendering: crispEdges
+}
+
+.axis--x path {
+  stroke: lightgrey;
+  stroke-opacity: 0.7;
+  shape-rendering: crispEdges
+}
