@@ -1,12 +1,12 @@
-let w = 1200;
+let w = 1100;
 let h = 800;
 let paddingX = 80;
 let paddingY = 80;
 
 let category_index = {
   'exercise':0,
-  'bonding':1,
-  'achievement':2,
+  'bonding':2,
+  'achievement':1,
   'leisure':3,
   'nature':4,
   'affection':5,
@@ -32,8 +32,8 @@ let viz = d3.select(".svg-container")
 
 let svg=d3.select('svg');
 
-let margin = {top: 20, right: paddingX+10, bottom: 110, left: paddingX};
-let margin2 = {top: h*0.75, right: paddingX+10, bottom: 30, left: paddingX};
+let margin = {top: 30, right: paddingX+10, bottom: 110, left: paddingX};
+let margin2 = {top: h*0.85, right: paddingX+10, bottom: 30, left: paddingX};
 let chartWidth = +svg.attr("width")- margin.left - margin.right;
 let chartHeight = +svg.attr("height") - margin.top - margin.bottom;
 let brushHeight = +svg.attr("height") - margin2.top - margin2.bottom;
@@ -73,7 +73,7 @@ let context = svg.append("g")
 ;
 
 //labels for different categories
-let labels = ['exercise','bonding','achievement','leisure','nature','affection',  'moment'];
+let labels = ['Exercise','Achievement','Bonding','Leisure','Nature','Affection',  'Moment'];
 let labelGroup =viz.append("g")
 .attr("class", "labelGroup")
 ;
@@ -82,13 +82,28 @@ let labelGroup =viz.append("g")
 //append text outside data function
 for(let i=0;i<7;i++){
 labelGroup
-  .attr('transform','translate('+(chartWidth+margin.left)+','+margin.top+')')
+  .attr('transform','translate('+(chartWidth+margin.left+4)+','+margin.top+')')
   .append('text')
   .text(labels[i])
   .attr('x','0')
   .attr('y',y(i))
-  .attr('stroke','grey')
+  .attr('fill','#344b56')
   ;
+
+labelGroup
+  .append('rect')
+  .attr('x','0')
+  .attr('y',y(i))
+  .attr('width','50')
+  .attr('height','5')
+  .attr('fill',function(){
+if(i<6){
+    return category_color[labels[i].toLowerCase()];
+}else{
+  return category_color['enjoy_the_moment'];
+}
+    })
+    ;
 }
 
 //creating clip mask for the chart
@@ -121,15 +136,18 @@ incomingData = incomingData.filter(function(d,i){
 
 //limit datapoints,n for a random start point of slice
 let n=Math.floor(Math.random(1)*50000);
-let dataSize = 1000;
+let dataSize = 2000;
 incomingData = incomingData.slice(n,n+dataSize);
 let maxAge = d3.max(incomingData, function(d) {
+    return d.age;
+})
+let minAge = d3.min(incomingData, function(d) {
     return d.age;
 })
 
 //----axis-----
 //set axis domain
-x.domain([13,maxAge-5]);
+x.domain([16,maxAge-5]);
 y.domain([0,6]);
 x2.domain(x.domain());
 y2.domain(y.domain());
@@ -138,10 +156,11 @@ let maxNumofSentence = d3.max(incomingData, function(d) {
     return d.num_sentence;
 })
 
-console.log(maxNumofSentence,n);
+
+// console.log(maxNumofSentence,n);
 
 
-let rScale = d3.scaleLinear().domain([0,maxNumofSentence]).range([1,4.5]);
+let rScale = d3.scaleLinear().domain([0,maxNumofSentence]).range([1,3]);
 
 
 //x axis
@@ -159,6 +178,8 @@ xAxisGroup
     .tickSize(-chartHeight)
     .tickFormat("")
     )
+;
+
 
 let yAxisGroup = focus.append("g").attr("class", "axis axis--y");
 yAxisGroup
@@ -177,12 +198,36 @@ context.append("g")
   .attr("transform", "translate(0," + brushHeight + ")")
   .call(xAxis2);
 
+let brushtext = context.append("g")
+  .attr("class", "xAxisText")
+  ;
+
+brushtext
+  .attr("transform", "translate(0," + brushHeight + ")")
+  .append('text')
+  .text('Select the range')
+  .attr('font-size','13px')
+  .attr('x',chartWidth+4)
+  .attr('y',-35)
+  .attr('fill','#344b56')
+  ;
+
+brushtext
+  .attr("transform", "translate(0," + brushHeight + ")")
+  .append('text')
+  .text('of age')
+  .attr('font-size','13px')
+  .attr('x',chartWidth+4)
+  .attr('y',-15)
+  .attr('fill','#344b56')
+  ;
+
 ///----force----
 
 //force simulationRan
 incomingData = incomingData.map(function(datapoint){
   datapoint.x = x(datapoint.age);
-  datapoint.y = h/2;
+  datapoint.y = y(category_index[datapoint.predicted_category]);
 
   return datapoint;
 })
@@ -198,7 +243,7 @@ let simulation = d3.forceSimulation(incomingData)
     return rScale(d.num_sentence)+1;
   }))
   .on('tick',simulationRan)
-  .tick(10)
+  .tick(1)
 ;
 
 function restartForce(){
@@ -233,7 +278,7 @@ function simulationRan(){
 //-----brush-----
 
 //init brush
-let paddingBrush = 80;
+let paddingBrush = 0;
 let brush = d3.brushX()
   .extent([[0,paddingBrush],[chartWidth, brushHeight+paddingBrush]])
   .on('brush end',brushed)
@@ -305,8 +350,11 @@ let datagroup = chartEnter
     return category_color[d.predicted_category];
   })
   .attr("class", "area")
+  ;
+
+datagroup
   .on('mouseover',mouseover)
-  .on('mousemove',mousemove)
+  // .on('mousemove',mousemove)
   .on('mouseleave',mouseleave)
   ;
 
@@ -316,33 +364,28 @@ let tooltip = d3.select(".info")
   .style("opacity", 0)
   .attr('class',"tooltip")
 
-
-
 //mouse interaction
 function mouseover(d){
 
-  // console.log(datagroup);
-  //
-  // tooltip
-  //   .style("opacity", 1)
-  //   .html("The happy moment is:<br> " + d.cleaned_hm)
-  //   .style("left", (d3.mouse(this)[0]) + 100+"px")
-  //   .style("top", (d3.mouse(this)[1]) + "px")
-  // ;
-
-  datagroup
-    .transition()
-    .style('opacity',0.1)
+  tooltip
+    .style("opacity", 1)
+    .html('"' + d.cleaned_hm+'"')
+    .style("left", (d3.mouse(this)[0]) + 100+"px")
+    .style("top", (d3.mouse(this)[1]) + "px")
   ;
 
-//change size
-  // d3.select(this)
+  // datagroup
   //   .transition()
-  //   .style('opacity',1)
-  //   .attr('r',function(d){
-  //     return '8';
-  //   })
+  //   .style('opacity',0.1)
   // ;
+
+//change size
+  d3.select(this)
+    .style('opacity',1)
+    .attr('r',function(d){
+      return '7';
+    })
+  ;
 
 }
 
@@ -350,50 +393,41 @@ function mousemove(d){
 
   tooltip
     .style("opacity", 1)
-    .html("The happy moment is:<br> " + d.cleaned_hm)
+    .html('The happy moment is:<br>" ' + d.cleaned_hm+'"')
     .style("left", (d3.mouse(this)[0]) + 100+"px")
     .style("top", (d3.mouse(this)[1]) + "px")
   ;
 
-  datagroup
-    .transition()
-    .style('opacity',0.1)
+  // datagroup
+  //   .transition()
+  //   .style('opacity',0.1)
+  // ;
+
+  d3.select(this)
+    .style('opacity',1)
+    .attr('r',function(d){
+      return '7';
+    })
   ;
-// tooltip
-// .style("opacity", 1)
-// .html("The happy moment is:<br> " + d.cleaned_hm)
-// .style("left", (d3.mouse(this)[0]) + 100+"px")
-// .style("top", (d3.mouse(this)[1]) + "px")
-// ;
 
-// datagroup
-// .style('opacity',0.1)
-// ;
-
-
-// d3.select(this)
-// .attr('r',function(d){
-//   return rScale(d.num_sentence);
-// })
-// ;
 
 }
 
 function mouseleave(d) {
-tooltip
-.style("opacity", 0)
-;
+  tooltip
+  .style("opacity", 0)
+  ;
 
-datagroup
-.style('opacity',1)
-;
+  // datagroup
+  // .style('opacity',1)
+  // ;
 
-d3.select(this)
-.style("stroke", "none")
-.attr('r',function(d){
-  return rScale(d.num_sentence);
-})
-;
+  d3.select(this)
+  .style("stroke", "none")
+  .attr('r',function(d){
+    return rScale(d.num_sentence);
+  })
+  ;
 
 }
 
@@ -428,7 +462,7 @@ function updateOpacity(){
 
 
   // // console.log(id);
-  datagroup.attr('opacity', 0.2);
+  datagroup.style('opacity', 0.2);
 
   datagroup
   .filter(function(d){
@@ -464,76 +498,14 @@ function updateOpacity(){
     }
     if(d.someone == 'TRUE' && selectedCheckBox.includes('someone')){
       return true;
-      console.log('t');
     }
     else{
       return false;
       console.log('else');
     }
   })
+  .style('opacity', 1)
   ;
-
-  console.log(datagroup);
-  datagroup
-  .attr('opacity', 1)
-  ;
-  // datagroup.filter(function(d, i){
-  //   console.log(d[id]);
-  //   // loop over currenbtly sleect array
-  //   // and check if the datapoint contains any of the selected categories
-  //   // if yes, return true
-  //   // else, false
-  //   return d[id] == "TRUE"
-  // }).attr('opacity', 1)
-  // console.log("-----");
-  //
-  // let cb = d3.select(this);
-  // let name = cb.node().name;
-  // let state = cb.node().checked;
-  // console.log(cb.node());
-
-// // For each check box,get name and state
-// d3.selectAll(".checkbox")
-// .each(function(d){
-//
-// let cb = d3.select(this);
-// let name = cb.node().name;
-// let state = cb.node().checked;
-//
-// console.log(cb.node().name, cb.node().checked);
-//
-// datagroup
-// .attr('opacity',filterSetting)
-// ;
-//
-// function filterSetting(d){
-//
-//   // console.log(d.iwe);
-//   if(state == true){
-//     if(name == 'iwe'){
-//         if(d.iwe == true){
-//           return '1';
-//           console.log('i');
-//         }
-//     if(name == 'dogcat'){
-//         if(d.iwe == true){
-//           return '1';
-//           console.log('cat');
-//         }
-//     }
-//   }
-//   else if(state == false){
-//           return '0.1';
-//           console.log(false);
-//   }else{
-//     console.log('else');
-//   }
-//
-// }
-// }
-//
-//
-// })
 
 }
 
