@@ -38,7 +38,7 @@ let subjectnumGroup = chartSvg.append("g")
   .attr("transform",
         "translate(" + 100 + "," + 100 + ")");
 
-let chartSvg2 = d3.select("section")
+let chartSvg2 = d3.select(".svg-container3")
   .append("svg")
   .attr('width',600)
 ;
