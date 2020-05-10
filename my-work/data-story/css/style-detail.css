@@ -35,7 +35,37 @@ font-family: 'Roboto',sans-serif;
 fill:#344b56;
 }
 
-.intro{
+.treemap{
+text-transform: capitalize;
+}
+
+.treemap text{
+font-family: 'Roboto',sans-serif;
+font-size: 12px;
+text-transform: capitalize;
+}
+
+.tick line{
+  display: none;
+}
+
+section{
+    flex: 1;
+    height: 50%;
+    padding: 0px;
+    margin: auto;
+    max-width: 700px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #fff;
+
+}
+
+.axis--y path{
+  display: none;
+}
+
+/* .intro{
   margin: 0 auto 3rem auto;
   position: relative;
   display: flex;
@@ -66,16 +96,16 @@ fill:#344b56;
   padding: 4rem 1rem 1.5rem 1rem;
   position: relative;
   color: #fffaf0;
-}
+} */
 
-.title{
+/* .title{
   max-width: 960px;
   margin: 0 auto;
   font-size: 100px;
   text-align: center;
   text-shadow: 3px 3px 3px #e28823;
   flex-grow: 1;
-}
+} */
 
 /* title2 */
 h3{
@@ -93,9 +123,9 @@ letter-spacing: 0.5;
   padding-top: 60px
 }
 
-.gif{
+/* .gif{
   padding-top: 20px;
-}
+} */
 
 .text1,.credit,.button,.gif{
   padding: 0 16px;
@@ -105,14 +135,14 @@ letter-spacing: 0.5;
   margin-left: auto;
   margin-right: auto;
 }
-
+/*
 button{
   border-radius: 20px;
 height: 40px;
 width: 180px;
 font-size: 15px;
 background: none;
-}
+} */
 
 .credit{
   border-top: dotted;
@@ -120,10 +150,10 @@ background: none;
     border-width: thin;
 }
 
-.button{
+/* .button{
   padding-bottom: 30px;
   padding-top: 30px;
-}
+} */
 
 /* for main page */
 

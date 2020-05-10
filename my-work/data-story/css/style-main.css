@@ -116,14 +116,14 @@ p{
 }
 
 button{
-/* border-radius: 20px; */
-height: 40px;
-width: 80px;
-font-size: 13px;
-background: none;
-text-transform: uppercase;
-font-family: 'Roboto',sans-serif;
-fill:#344b56;
+  /* border-radius: 20px; */
+  height: 40px;
+  width: 80px;
+  font-size: 13px;
+  background: none;
+  text-transform: uppercase;
+  font-family: 'Roboto',sans-serif;
+  fill:#344b56;
 }
 
 button:hover{
@@ -135,6 +135,9 @@ button:hover{
   width: 200px;
   padding: 20px;
   font-size: 13px;
+
+  width: auto;
+  max-width: 400px;
 
   background-color:#ffffff;
   /* border:solid; */

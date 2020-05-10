@@ -24,7 +24,8 @@ let treemapSvg = d3.select(".svg-container1")
 
 let categorynumGroup = treemapSvg.append("g")
   .attr("transform",
-        "translate(" +50 + "," + margin.top + ")")
+        "translate(" +50 + "," + 100 + ")")
+  .attr('class','treemap')
   ;
 
 let chartSvg = d3.select(".svg-container2")
@@ -35,7 +36,16 @@ let chartSvg = d3.select(".svg-container2")
 
 let subjectnumGroup = chartSvg.append("g")
   .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+        "translate(" + 100 + "," + 100 + ")");
+
+let chartSvg2 = d3.select("section")
+  .append("svg")
+  .attr('width',600)
+;
+
+let subjectDetailGroup = chartSvg2.append("g")
+  .attr("transform",
+        "translate(" + 20 + "," + 10 + ")");
 
 
 //load data
@@ -43,8 +53,10 @@ d3.csv("data/merged-filter.csv").then(function(fullData){
   d3.csv("data/category-count.csv").then(function(categoryData){
     d3.csv("data/subject-count.csv").then(function(subjectData){
 
-console.log(categoryData,subjectData);
+console.log(fullData);
 
+
+//----------deal with treemap of category-------//
 categoryData = categoryData.map(function(d){
   d.num = Number(d.num);
   return d;
@@ -78,7 +90,6 @@ categorynumGroup
      .attr('y', function (d) { return d.y0; })
      .attr('width', function (d) { return d.x1 - d.x0; })
      .attr('height', function (d) { return d.y1 - d.y0; })
-     .style("stroke", "black")
      .style("fill", "#69b3a2");
 
  // and to add the text labels
@@ -87,8 +98,8 @@ categorynumGroup
    .data(root.leaves())
    .enter()
    .append("text")
-     .attr("x", function(d){ return d.x0+10})    // +10 to adjust position (more right)
-     .attr("y", function(d){ return d.y0+20})    // +20 to adjust position (lower)
+     .attr("x", function(d){ return d.x0+10})
+     .attr("y", function(d){ return d.y0+20})
      .text(function(d){ return d.data.category})
      .attr("font-size", "15px")
      .attr("fill", "white")
@@ -123,7 +134,7 @@ let xAxisSubject = d3.axisBottom(xSubject);
 let xAxisGroupSubject = subjectnumGroup.append("g").attr("class", "axis axis--x");
 
   xAxisGroupSubject
-  // .attr("transform","translate(0," + height + ")")
+    .attr('transform','translate(0,'+-10+')')
     .style("stroke-dasharray",("3,3"))
     .call(xAxisSubject)
   ;
@@ -133,7 +144,6 @@ let yAxisSubject = d3.axisLeft(ySubject);
 let yAxisGroupSubject = subjectnumGroup.append("g").attr("class", "axis axis--y");
 
   yAxisGroupSubject
-    // .attr('transform','translate('+chartWidth+','+'0)')
     .attr("class","axis axis--y")
     .style("stroke-dasharray",("3,3"))
     .call(yAxisSubject);
@@ -161,6 +171,37 @@ subjectnumGroup.selectAll("circle")
     .style("fill", "#69b3a2")
     .attr("stroke", "black")
 ;
+
+//----------subject detail version--------
+fullData = fullData.filter(function(d,i){
+    if(d.modified == 'TRUE'){
+      return true;
+    }else{
+      return false;
+    }
+    if(d.num_sentence<20){
+      return true;
+    }else{
+      return false;
+    }
+})
+
+subjectDetailGroup.data(fullData)
+  .enter()
+  .append('text')
+  .text(function(d){
+    if(d.daughterson == 'TRUE'){
+      return d.cleaned_hm;
+    }
+  })
+    .attr('font-size','13px')
+    .attr('x',0)
+    .attr('y',0)
+    .attr('fill','#344b56')
+  ;
+
+
+
 
 
 })
