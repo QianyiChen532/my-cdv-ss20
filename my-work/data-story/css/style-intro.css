@@ -107,11 +107,14 @@ letter-spacing: 0.5;
 }
 
 button{
-  border-radius: 20px;
-height: 40px;
-width: 180px;
-font-size: 15px;
-background: none;
+  /* border-radius: 20px; */
+  height: 40px;
+  width: auto;
+  font-size: 13px;
+  background: #efc07b7a;
+  text-transform: uppercase;
+  font-family: 'Roboto',sans-serif;
+  fill:#efc07b7a;
 }
 
 .credit{
@@ -123,6 +126,10 @@ background: none;
 .button{
   padding-bottom: 30px;
   padding-top: 30px;
+}
+
+.button-container{
+  text-align: center;
 }
 
 /* for main page */

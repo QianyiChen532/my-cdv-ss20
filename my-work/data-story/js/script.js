@@ -160,7 +160,7 @@ let maxNumofSentence = d3.max(incomingData, function(d) {
 // console.log(maxNumofSentence,n);
 
 
-let rScale = d3.scaleLinear().domain([0,maxNumofSentence]).range([1,3]);
+let rScale = d3.scaleLinear().domain([0,maxNumofSentence]).range([2,3]);
 
 
 //x axis

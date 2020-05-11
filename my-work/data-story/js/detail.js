@@ -1,5 +1,3 @@
-// set the dimensions and margins of the graph
-let margin = {top: 10, right: 30, bottom: 40, left: 100};
 
 let w1 = 450;
 let h1 = 450;
@@ -24,7 +22,7 @@ let treemapSvg = d3.select(".svg-container1")
 
 let categorynumGroup = treemapSvg.append("g")
   .attr("transform",
-        "translate(" +50 + "," + 100 + ")")
+        "translate(" +50 + "," + 0 + ")")
   .attr('class','treemap')
   ;
 
@@ -36,19 +34,13 @@ let chartSvg = d3.select(".svg-container2")
 
 let subjectnumGroup = chartSvg.append("g")
   .attr("transform",
-        "translate(" + 100 + "," + 100 + ")");
+        "translate(" + 100 + "," + -20 + ")");
 
-let chartSvg2 = d3.select(".svg-container3")
-  .append("svg")
-  .attr('width',600)
+let chartforText = d3.select(".svg-container3")
+
 ;
 
-let subjectDetailGroup = chartSvg2.append("g")
-  .attr("transform",
-        "translate(" + 20 + "," + 10 + ")");
-
-
-//load data
+// //load data
 d3.csv("data/merged-filter.csv").then(function(fullData){
   d3.csv("data/category-count.csv").then(function(categoryData){
     d3.csv("data/subject-count.csv").then(function(subjectData){
@@ -129,17 +121,23 @@ let xSubject = d3.scaleLinear()
   .domain([0,maxSubject])
   .range([ 0, w1-paddingX1*2]);
 
+  //
+  // function make_x_gridlines() {
+  //   return d3.axisBottom(xSubject)
+  //   .ticks(7)
+  // }
 let xAxisSubject = d3.axisBottom(xSubject);
 
 let xAxisGroupSubject = subjectnumGroup.append("g").attr("class", "axis axis--x");
 
   xAxisGroupSubject
-    .attr('transform','translate(0,'+-10+')')
+    .attr('transform','translate('+0+','+430+')')
     .style("stroke-dasharray",("3,3"))
     .call(xAxisSubject)
   ;
 
 let yAxisSubject = d3.axisLeft(ySubject);
+
 
 let yAxisGroupSubject = subjectnumGroup.append("g").attr("class", "axis axis--y");
 
@@ -168,12 +166,12 @@ subjectnumGroup.selectAll("circle")
     .attr("cx", function(d) { return xSubject(d.num); })
     .attr("cy", function(d) { return ySubject(d.subject); })
     .attr("r", "7")
-    .style("fill", "#69b3a2")
-    .attr("stroke", "black")
+    .style("fill", '#f88776')
+
 ;
 
 //----------subject detail version--------
-fullData = fullData.filter(function(d,i){
+let slicedData = fullData.filter(function(d,i){
     if(d.modified == 'TRUE'){
       return true;
     }else{
@@ -184,23 +182,80 @@ fullData = fullData.filter(function(d,i){
     }else{
       return false;
     }
+
+
+    if(d.iwe == 'TRUE'){
+      return true;
+    }
+    if(d.daughterson == 'TRUE'){
+      return true;
+    }
+    if(d.husbandwife == 'TRUE'){
+      return true;
+    }
+    if(d.bfgf == 'TRUE'){
+      return true;
+    }
+    if(d.bossteam == 'TRUE'){
+      return true;
+    }
+    if(d.dogcat == 'TRUE'){
+      return true;
+    }
+    if(d.someone == 'TRUE'){
+      return true;
+    }
+    else{
+      return false;
+    }
+
 })
 
-subjectDetailGroup.data(fullData)
-  .enter()
-  .append('text')
-  .text(function(d){
-    if(d.daughterson == 'TRUE'){
+console.log(slicedData);
+
+
+let allText = chartforText.selectAll('p').data(slicedData)
+.enter()
+.append('p')
+.text(function(d){
+  // console.log(d['daughterson']);
+  return d.cleaned_hm;
+})
+.attr('font-size','13px')
+;
+
+
+
+function filterBySubject(subject){
+  allText
+  .style('display','none')
+  .filter(function(d){
+    // console.log(d[subject]);
+    if(d[subject]=='TRUE'){
       return d.cleaned_hm;
     }
   })
-    .attr('font-size','13px')
-    .attr('x',0)
-    .attr('y',0)
-    .attr('fill','#344b56')
-  ;
+  .style('display','block')
+}
 
-
+d3.select('#daughterson').on('click',function(){
+  filterBySubject('daughterson')
+})
+d3.select('#dogcat').on('click',function(){
+  filterBySubject('dogcat')
+})
+d3.select('#bossteam').on('click',function(){
+  filterBySubject('bossteam')
+})
+d3.select('#bfgf').on('click',function(){
+  filterBySubject('bfgf')
+})
+d3.select('#husbandwife').on('click',function(){
+  filterBySubject('husbandwife')
+})
+d3.select('#someone').on('click',function(){
+  filterBySubject('someone')
+})
 
 
 

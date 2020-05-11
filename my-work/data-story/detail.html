@@ -1,63 +1,133 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Happiness</title>
-    <link rel="stylesheet" href="css/style-detail.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Happiness</title>
+  <link rel="stylesheet" href="css/style-detail.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      <!-- include library -->
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/bfiessinger/scrollToSmooth@latest/dist/scrolltosmooth.min.js"></script>
-        <script src="https://d3js.org/d3-array.v2.min.js"></script>
+  <!-- include library -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/bfiessinger/scrollToSmooth@latest/dist/scrolltosmooth.min.js"></script>
+  <script src="https://d3js.org/d3-array.v2.min.js"></script>
 
 </head>
 
 <body>
+  <div class="intro">
+    <div class="intro-overlay">
+
+    </div>
+
+  </div>
+  <h1>Stories Behind the Happy Moment</h1>
+  <div class="intro-text">
+    <p>How do you feel about the exploration? The exploration page randomly shows 2000 out of 100,000 happy moments and you can explore it using filter, age selection, etc. If you’re interested in the story behind, here is the place for you.</p>
+    <p>&#10071;The page may take some time to load:)</p>
+  </div>
+
+  <div class="separator">
+    &#128518;&#128512;&#128515;&#128518;&#128522;
+  </div>
+
   <div class="text1">
-    <p>[Intro Text to be continued]What’s the data of happiness?</p>
-    <p>You might have heard of World Happiness Report in which Finland is ranked No.1 with the highest score. The score is based on several different aspects including social support, healthy life expectancy etc. And there is also research on the correlation between happiness and life satisfaction, happiness overtime...</p>
-    <p>What would you think of when talking about happiness?</p>
-    <p>Friends, family, partner, pets, … These are concrete details that leads you directly be memory of happiness. Here, instead of showing you the abstract numbers, this data visualization brings you to the moment of happiness and allows you to explore among different happy moments.</p>
-    <p>Please enjoy :)</p>
+    <p>What made you happy over the past 24h/3months?</p>
+
+    <p>Over 10,000 people documented their 100,000 happy moments and made this wonderful dataset called happyDB. Each datapoint contains is basically a message about happy moment,  a predicted category, and some basic demographic information related to the person(just for academic analysis use).</p>
+
+    <p>
+Therefore, my design for the visualization of this data is also mainly based on the category, the individuals, and the message(text) itself.</p>
+    <h2>Category</h2>
+    <p>
+The categories of the happy moments are predicted by some NLP tools based on several rounds of calculations and classifications. The result might not always be accurate. Some messages can be categorized into more than one category. But it can still give you a rough idea about the things that make people happy.</p>
+
+    <div class="subtitle">
+      <h3>Category count for different predicted category</h3>
+    </div>
+
   </div>
   <div id="visualization">
     <div class="svg-container1">
 
     </div>
+    <p class='explanation'>Affection and achievement are listed as the top2, which is close to our own experience.</p>
+
     <div class="text1">
-      <p>[Intro Text to be continued]What’s the data of happiness?</p>
-      <p>You might have heard of World Happiness Report in which Finland is ranked No.1 with the highest score. The score is based on several different aspects including social support, healthy life expectancy etc. And there is also research on the correlation between happiness and life satisfaction, happiness overtime...</p>
-      <p>What would you think of when talking about happiness?</p>
-      <p>Friends, family, partner, pets, … These are concrete details that leads you directly be memory of happiness. Here, instead of showing you the abstract numbers, this data visualization brings you to the moment of happiness and allows you to explore among different happy moments.</p>
-      <p>Please enjoy :)</p>
+
+      <h2>Subject</h2>
+
+      <p>Apparently, most of the happy moments are about “I” or “we”, but in addition to that, other subjects involved in this moment are also worth looking at.</p>
+      <p>I especially like the "someone" moment.</p>
+
+
+      <div class="subtitle">
+        <h3>Subject count for some keywords</h3>
+      </div>
     </div>
     <div class="svg-container2">
 
     </div>
+    <p class='explanation'>Most</p>
+
     <div class="text1">
-      <p>[Intro Text to be continued]What’s the data of happiness?</p>
-      <p>You might have heard of World Happiness Report in which Finland is ranked No.1 with the highest score. The score is based on several different aspects including social support, healthy life expectancy etc. And there is also research on the correlation between happiness and life satisfaction, happiness overtime...</p>
+
+
+      <h2>Text</h2>
+        <p>The researchers built this corpus with the goal to understand the causes of happiness and how can techniques like NLP contribute to positive psychology. But since there is enough pattern analysis, in this experience I also want the audience to fully immerse in the text and feel the power of the text itself. Here is a full version of the keyword filter.</p>
+      <div class="subtitle">
+        <h3>Check raw messgaes for some keywords</h3>
+      </div>
+
+
     </div>
 
-
-<section id='daughterson'>
-<div class="svg-container3">
+    <div class="button-container">
+      <button type="button" name="button" id='daughterson'>daughter/son</button>
+      <button type="button" name="button" id='dogcat'>dog/cat</button>
+      <button type="button" name="button" id='husbandwife'>husband/wife</button>
+      <button type="button" name="button" id='bfgf'>boyfriend/girlfriend</button>
+      <button type="button" name="button" id='bossteam'>boss/team</button>
+      <button type="button" name="button" id='someone'>someone</button>
     </div>
-</section>
+    <section id='daughterson'>
+
+      <div class="svg-container3">
+      </div>
+    </section>
+    <p class='explanation'>Click buttons to change filter. Scroll down(with your mouse inside this box) to see more(There are thousands of messages)!</p>
+  </div>
 
 
+  <div class="text1">
+
+      <p>Here is the end of this exploration of happy moment. But happiness never ends.</p>
+          <p>Thanks for reading!(Hope this makes you happy:)</p>
+    <iframe src="https://giphy.com/embed/lCP95tGSbMmWI" width="480" height="260" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+
+
+
+  </div>
+  <div class="button">
+    <div class="button-container" id='main-button'>
+      <button onclick="location.href = 'index.html';"type="button" name="button">back to beginning</button>
+
+      <button onclick="location.href = 'main.html';"type="button" name="button">back to exploration</button>
+
+    </div>
 
     <div class="credit">
-  <p class='notes'>
-    Image credit:
-  </p>
-  <p class='notes'> Dataset: The HappyDB corpus comes from Akari Asai, Sara Evensen, Behzad Golshan, Alon Halevy, Vivian Li, Andrei Lopatenko, Daniela Stepanov, Yoshihiko Suhara, Wang-Chiew Tan, Yinzhan Xu. More details can be found on <a href="https://github.com/megagonlabs/HappyDB">Github</a> and <a href="https://rit-public.github.io/HappyDB/">this site</a>.
-  </p>
+      <p class='notes'>
+        Image credit: Hybrid on Unsplash
+      </p>
+      <p class='notes'> Dataset: The HappyDB corpus comes from Akari Asai, Sara Evensen, Behzad Golshan, Alon Halevy, Vivian Li, Andrei Lopatenko, Daniela Stepanov, Yoshihiko Suhara, Wang-Chiew Tan, Yinzhan Xu. More details can be found on <a href="https://github.com/megagonlabs/HappyDB">Github</a> and <a href="https://rit-public.github.io/HappyDB/">this site</a>.
+      </p>
+
+
+
 
     </div>
-    </div>
-  <!-- our main script: -->
-  <script type="text/javascript" src="js/detail.js"></script>
-</body>
-</html>
+    <!-- our main script: -->
+    <script type="text/javascript" src="js/detail.js"></script>
+  </body>
+  </html>
