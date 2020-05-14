@@ -18,7 +18,7 @@ let category_color = {
   'bonding':'#a2cae0',
   'nature':'#b9d28f',
   'leisure':'#a2cebb',
-  'achievement':'#f2cfb7',
+  'achievement':'#eac196',
   'affection':'#f2c3c0',
   'enjoy_the_moment':'#f88776'
 }
@@ -160,7 +160,7 @@ let maxNumofSentence = d3.max(incomingData, function(d) {
 // console.log(maxNumofSentence,n);
 
 
-let rScale = d3.scaleLinear().domain([0,maxNumofSentence]).range([2,3]);
+let rScale = d3.scaleLinear().domain([0,10]).range([3,5]);
 
 
 //x axis
